@@ -41,7 +41,7 @@ int UserCount = 0;
 int TransactionCount = 0;
 int CurrentUserIndex = -1;
 void Login();
-void SignIn();
+void SignUp();
 void Menu();
 void MainWindow();
 void Transfer();
@@ -55,7 +55,7 @@ void LoadFromFile();
 void UserInfo();
 void Donate();
 
-void SignIn() {
+void SignUp() {
 
 };
 void Login() {
