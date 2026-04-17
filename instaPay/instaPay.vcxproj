@@ -134,6 +134,7 @@
     <ClInclude Include="FilesLayer.h" />
     <ClInclude Include="FilesSigns.h" />
     <ClInclude Include="Services.h" />
+    <ClInclude Include="Validation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

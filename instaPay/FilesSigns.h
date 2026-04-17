@@ -8,12 +8,16 @@ using namespace std;
 	(Street/#/City/#/HomeNumber)
 
 	File (Account  Data) => Seprator Or Delimeter Is $
-	(CardNumber$HolderName$BankName$CVVCode$ExpirationDate$Balance)
+	(CardNumber$PINCode$HolderName$BankName$CVVCode$ExpirationDate$Balance)
 
 	File (Personal  Data) => Seprator Or Delimeter Is #
-	(UserName#Id#Password#Phone#Email#)
+	(UserName#Id#Password#Phone#Email)
+
+	File (Transactions  Data) => Seprator Or Delimeter Is %#%
+	(From(PhoneNumber)%#%To(PhoneNumber)%#%Date%#%Amount)
 */
 
 const string SepratorPersonalData = "#";
 const string SepratorAccountData = "$";
 const string SepratorAddressData = "/#/";
+const string SepratorTransactionData = "%#%";
