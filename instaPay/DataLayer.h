@@ -47,7 +47,6 @@ struct StUser
 	string Password;
 	string Email;
 	StAddress Address;
-	StAccount Account;
 	StAccount AccountsList[3];									    // Each User Can Create Three Accounts Only 
 	StTransactions TransactionsFrom[MAX_TRANSACTIONS_PER_USER]; // Transactions (From) History Of User
 	StTransactions TransactionsTo[MAX_TRANSACTIONS_PER_USER];  // Transactions (To) History Of User
