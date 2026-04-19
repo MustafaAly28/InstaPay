@@ -2,8 +2,10 @@
 #pragma once
 #include<iostream>
 #include"DataLayer.h"
+#include "Login.h"
 using namespace std;
-
+using namespace DataLayer;
+using namespace Login;
 namespace Validation
 {
 
@@ -61,7 +63,7 @@ namespace Validation
 
 		for (int UserPosition = 0; UserPosition < AddingUsersCounter; UserPosition++)
 		{
-			if (Users[UserPosition].AccountUser.CardNumber == CardNumber)
+			if (Users[UserPosition].Account.CardNumber == CardNumber)
 				return IsExist;
 		}
 		return !IsExist;
@@ -75,7 +77,7 @@ namespace Validation
 
 		for (int Bank = 0; Bank < CountBank; Bank++)
 		{
-			if (Utility::ConvertToLower(BankNames[Bank]) == Utility::ConvertToLower(BankName))
+			if (ConvertToLower(BankNames[Bank]) == ConvertToLower(BankName))
 			{
 				BankName = BankNames[Bank];
 				return IsValid;
@@ -88,7 +90,7 @@ namespace Validation
 	{
 		for (int UserPosition = 0; UserPosition < CountUsers; UserPosition++)
 		{
-			if (CvvCode == Users[UserPosition].AccountUser.CVVCode)
+			if (CvvCode == Users[UserPosition].Account.CVVCode)
 				return true;
 		}
 		return false;

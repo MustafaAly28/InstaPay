@@ -2,7 +2,7 @@
 #include<iostream>
 #include"DataLayer.h"
 using namespace std;
-
+using namespace DataLayer;
 namespace Print
 {
 	void PrintData(const StUser& User)

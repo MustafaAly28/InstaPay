@@ -133,6 +133,7 @@
     <ClInclude Include="DataLayer.h" />
     <ClInclude Include="FilesLayer.h" />
     <ClInclude Include="FilesSigns.h" />
+    <ClInclude Include="Login.h" />
     <ClInclude Include="Services.h" />
     <ClInclude Include="Validation.h" />
   </ItemGroup>

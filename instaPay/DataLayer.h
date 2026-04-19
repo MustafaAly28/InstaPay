@@ -3,7 +3,7 @@
 #include<string>
 #include<ctime>
 using namespace std;
-
+namespace DataLayer{
 const string PersonalInfoFile = "Personal.txt";
 const string AccountsInfoFile = "Accounts.txt";
 const string AddressInfoFile = "Address.txt";
@@ -47,6 +47,7 @@ struct StUser
 	string Password;
 	string Email;
 	StAddress Address;
+	StAccount Account;											    // Each User Can Create One Account Only
 	StAccount AccountsList[3];									    // Each User Can Create Three Accounts Only 
 	StTransactions TransactionsFrom[MAX_TRANSACTIONS_PER_USER]; // Transactions (From) History Of User
 	StTransactions TransactionsTo[MAX_TRANSACTIONS_PER_USER];  // Transactions (To) History Of User
@@ -56,3 +57,4 @@ struct StUser
 };
 
 StUser Users[USERS_COUNT];
+}

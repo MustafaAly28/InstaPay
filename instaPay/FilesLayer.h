@@ -7,6 +7,7 @@
 #include<fstream>
 #include"DataLayer.h"
 #include"FilesSigns.h"
+using namespace DataLayer;
 using namespace std;
 
 /*				----  Instructions For Dealing With Files Operations (For Our Team)  ----
