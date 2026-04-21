@@ -19,7 +19,7 @@ namespace Date
 	string CleanDate(const string& Text)
 	{
 		string Line = "";
-		for (int i = 0; i < Text.length(); i++)
+		for (size_t i = 0; i < Text.length(); i++)
 			if (Text[i] != '\n')
 				Line += Text[i];
 

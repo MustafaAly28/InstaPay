@@ -99,7 +99,7 @@ namespace Validation
 	bool IsEmailValid(const string& Email)
 	{
 		int CountCharacters = 0;
-		for (int Char = 0; Char < Email.length(); Char++)
+		for (size_t Char = 0; Char < Email.length(); Char++)
 		{
 			CountCharacters++;
 			if (Email[Char] == '@')

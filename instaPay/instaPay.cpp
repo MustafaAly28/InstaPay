@@ -11,6 +11,7 @@
 #include "Login.h"
 #include "Services.h"
 #include "Validation.h"
+#include "MainMenu.h"
 
 using namespace Validation;
 using namespace File;
@@ -19,6 +20,7 @@ using namespace Date;
 
 using namespace DataLayer;
 using namespace Login;
+using namespace MainMenu;
 using namespace std;
 //
 //struct Transaction {
@@ -126,7 +128,7 @@ using namespace std;
 //
 //}
 int main() {
-    srand(time(0));
+    srand((unsigned int)time(0));
     system("color 0E");
     HaveAccount();
 }

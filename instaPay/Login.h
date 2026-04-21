@@ -8,8 +8,10 @@
 #include "Login.h"
 #include <cstdlib>
 #include <ctime>
+#include "MainMenu.h"
 using namespace std;
 using namespace DataLayer;
+using namespace MainMenu;
 namespace Login {
 
     void Register();
@@ -163,7 +165,7 @@ namespace Login {
     }
 
 
-    //يارب نتجوز
+    //يارب نتجوز   
     bool ValidCardNumber(string CardNumber) {
         if (CardNumber[0] != '5' && CardNumber[0] != '4') {
             cout << "Card number must start with 4 or 5!\n"; return false;
@@ -414,6 +416,7 @@ namespace Login {
         //cout << "User Registered Successfully!" << endl;
         cin.ignore();
     }
+
     void Login() {
         cout << "================================" << "\n";
         cout << "            INSTAPAY            " << "\n";
@@ -436,15 +439,14 @@ namespace Login {
            cout << "Enter your password : ";
            cin>> CheckPassword ;
            cin.ignore(1000, '\n');
-           
-            int UserIndex = FindUser(CheckName, CheckPassword);
+           int UserIndex = FindUser(CheckName, CheckPassword);
             if (UserIndex != -1) {
 
                 ShowLoading();
 
                 cout << "Login Successful! Welcome, " << Users[UserIndex].UserName << " Your ID : " << Users[UserIndex].Id << endl;
                 FirstAccount();
-             
+               
             }
             else {
                 cout << "Invalid!! username or password." << endl;
