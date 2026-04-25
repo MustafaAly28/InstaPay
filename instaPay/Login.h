@@ -305,6 +305,7 @@ namespace Login {
             Users[UserIndex].AccountsList[0].Balance =( rand() % 9001)+1000; // Random balance between 1000 and 10000
 			cout << "your initial balance is : " << Users[UserIndex].AccountsList[0].Balance << endl;
             cout << "\nAccount Registered Successfully!\n";
+			Account_Count ++;
 			break;  //adding break at the end of while loop
         }
     }
