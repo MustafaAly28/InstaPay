@@ -5,19 +5,19 @@
 #include <fstream> 
 #include <windows.h> 
 #include "DataLayer.h"
-#include "Login.h"
 #include <cstdlib>
 #include <ctime>
-#include "MainMenu.h"
+//#include "MainMenu.h"
 using namespace std;
 using namespace DataLayer;
-using namespace MainMenu;
+//using namespace MainMenu;
 namespace Login {
 
     void Register();
-    void Login();
+    void LoGin();
     void HaveAccount();
     void FirstAccount();
+    int UserIndex;
 
     int FindUser(string Name, string Pass) {
         for (int i = 0; i < AddingUsersCounter; i++) {
@@ -27,6 +27,7 @@ namespace Login {
         }
         return -1;
     }
+   
 
     bool ValidePhone(string Phone) {//اجمد حاجة عملتها حتي الأن بيتشك علي انه 11 رقم وكمان يكونوا مصري فودافون اورنج اتصالات هكذا
 
@@ -305,7 +306,7 @@ namespace Login {
             Users[UserIndex].AccountsList[0].Balance =( rand() % 9001)+1000; // Random balance between 1000 and 10000
 			cout << "your initial balance is : " << Users[UserIndex].AccountsList[0].Balance << endl;
             cout << "\nAccount Registered Successfully!\n";
-			Account_Count ++;
+            Users[UserIndex].CountAccounts++;
 			break;  //adding break at the end of while loop
         }
     }
@@ -410,7 +411,7 @@ namespace Login {
         AddingUsersCounter++;
 		cout << "Sign Up Successful!\n";
 		cout << "Your ID is : " << Users[AddingUsersCounter - 1].Id << endl;
-        Login();
+        LoGin();
 
         //SaveToFile(); // حفظ البيانات في الملف
        // ShowLoading();
@@ -418,45 +419,59 @@ namespace Login {
         cin.ignore();
     }
 
-    void Login() {
+    void LoGin() {
+        ShowLoading();
         cout << "================================" << "\n";
         cout << "            INSTAPAY            " << "\n";
         cout << "================================" << "\n";
-        ShowLoading();
+
+        // يفضل تشيل ShowLoading() من هنا عشان ملهاش لازمة تظهر قبل ما اليوزر يكتب حاجة
+
         string CheckName, CheckPassword;
         int Counter = 0;
 
         cout << "Three Attempts to login\n";
-        
-        cin.ignore(1000, '\n');
+
+        // شيلنا الـ cin.ignore من هنا عشان متعملش تعليقة للبرنامج
+
         do {
-            
-            cout << "\n""========= Login Page ========" << endl;
+            cout << "\n========= Login Page ========" << endl;
             cout << "Enter your name : ";
-            
-            getline(cin, CheckName);
+
           
+            if (cin.peek() == '\n') cin.ignore();
+            getline(cin, CheckName);
 
-           cout << "Enter your password : ";
-           cin>> CheckPassword ;
-           cin.ignore(1000, '\n');
-           UserIndex = FindUser(CheckName, CheckPassword); // remove int
+            cout << "Enter your password : ";
+            cin >> CheckPassword;
+            cin.ignore(1000, '\n');
+
+            UserIndex = FindUser(CheckName, CheckPassword);
+
             if (UserIndex != -1) {
-
                 ShowLoading();
-
                 cout << "Login Successful! Welcome, " << Users[UserIndex].UserName << " Your ID : " << Users[UserIndex].Id << endl;
-                FirstAccount();
+
                
+                if (Users[UserIndex].CountAccounts == 0) {
+                    FirstAccount();
+                }
+
+                
+                //MainMenu::mainWindow(); 
+
+                return; 
             }
             else {
                 cout << "Invalid!! username or password." << endl;
                 Counter++;
+                
             }
+
         } while (Counter < 3);
-        cout << "\n[!] Access Denied. Returning to main menu..." << endl;
-       
+
         
+        cout << "\n[!] Access Denied. Returning to start..." << endl;
     }
     void HaveAccount() {
         char Choice;
@@ -464,7 +479,7 @@ namespace Login {
         cin >> Choice;
         if (Choice == 'Y' || Choice == 'y') {
             ShowLoading();
-            Login();
+            LoGin();
         }
         else if (Choice == 'N' || Choice == 'n') {
             ShowLoading();

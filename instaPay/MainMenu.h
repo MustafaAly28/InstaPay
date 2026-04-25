@@ -9,9 +9,9 @@
 #include <cstdlib>
 #include <ctime>
 #include <cctype>
-#include"Funcs.h"
-using namespace Funcs;
-
+//#include"Funcs.h"
+//using namespace Funcs;
+using namespace Login;
 using namespace std;
 using namespace DataLayer;
 //using namespace Login;
@@ -22,7 +22,8 @@ namespace MainMenu
     //int UserIndex = -1;
     int CounterAttempts = 0;
    
-
+    void WithDraw();
+    void Deposit();
 
         void ShowLoading() {
             cout << "\nLoading";
@@ -54,41 +55,41 @@ namespace MainMenu
             cout << "\n";
         }
 
-        int GetUserChoice() {
-            int Choice;
-            cout << "\n\t\tEnter Your Choice from (0-9)\n";
-            cout << "\t\t";
-            cin >> Choice;
-            return Choice;
-        }
-        bool ValidChoice(int Choice) {
-            bool ChoiceInSide = true;
+        ////int GetUserChoice() {
+        //    int Choice;
+        //    cout << "\n\t\tEnter Your Choice from (0-9)\n";
+        //    cout << "\t\t";
+        //    cin >> Choice;
+        //    return Choice;
+        //}
+        //bool ValidChoice(int Choice) {
+        //    bool ChoiceInSide = true;
 
-            if (Choice >= 0 && Choice <= 9)
-            {
-                return ChoiceInSide;
-            }//Validation For Choices
-            else
-            {
+        //    if (Choice >= 0 && Choice <= 9)
+        //    {
+        //        return ChoiceInSide;
+        //    }//Validation For Choices
+        //    else
+        //    {
 
-                return !ChoiceInSide;
-            }
+        //        return !ChoiceInSide;
+        //    }
 
 
 
-        }
-        int GetValidChoice() {
-            int Choice;
+        //}
+        //int GetValidChoice() {
+        //    int Choice;
 
-            while (true) {
-                Choice = GetUserChoice();
-                if (ValidChoice(Choice))
-                    return Choice;
+        //    while (true) {
+        //        Choice = GetUserChoice();
+        //        if (ValidChoice(Choice))
+        //            return Choice;
 
-                cout << "\n\t\tInvalid Choice";
-            }
+        //        cout << "\n\t\tInvalid Choice";
+        //    }
 
-        }
+        //}
 
         
 
@@ -97,7 +98,7 @@ namespace MainMenu
 
 
 
-            system("Color 0B"); // Color The Font
+            system("Color 0E"); // Color The Font
 
 
             cout << "\n\t\t========================================";
@@ -110,7 +111,63 @@ namespace MainMenu
             cout << "\n\t\t  9. Logout             0.Exist    ";
             cout << "\n\t\t========================================";
 
+            int Choice;
+            cout << "\nEnter Your Choice from (0-9) : ";
+            cin >> Choice;
 
+            switch (Choice) {
+            case 1:
+
+               // CheckBalance();
+
+                break;
+            case 2:
+                //AddNewAccount();
+
+                break;
+            case 3:
+
+                //Transfer();
+
+                break;
+            case 4:
+
+                //UserInfo();
+
+
+                break;
+            case 5:
+
+                //CheckTransactions();
+
+                break;
+            case 6:
+
+                //Donate();
+
+                break;
+            case 7:
+                CounterAttempts = 0;
+                Deposit();
+
+                break;
+            case 8:
+                CounterAttempts = 0;
+                WithDraw();
+
+                break;
+
+            case 9:
+                ShowLoading();
+                system("cls");
+                LoGin();
+
+                break;
+
+            default:
+                cout << "Invalid Choice";
+
+            }
 
 
 
@@ -122,8 +179,7 @@ namespace MainMenu
 
         string GetCardNumber() {
             string CardNumber;
-            cout << "\n\t\tEnter CardNumber As XXXX XXXX XXXX XXXX ";
-            cout << "\n\t\t";
+            cout << "\nEnter CardNumber As XXXX XXXX XXXX XXXX : ";
             cin.ignore();
             getline(cin, CardNumber);
             return CardNumber;
@@ -163,7 +219,7 @@ namespace MainMenu
                     return CardNumber;
 
                 }
-                cout << "\n\t\tInvalid Card Number";
+                cout << "\nInvalid Card Number";
                 CounterAttempts++;
 
 
@@ -205,8 +261,7 @@ namespace MainMenu
 
         double GetAmount() {
             double Amount;
-            cout << "\n\t\tAmount:";
-            cout << "\n\t\t";
+            cout << "\nAmount : ";
             cin >> Amount;
             return Amount;
         }
@@ -226,7 +281,7 @@ namespace MainMenu
                 if (ValidUserAmount(Amount))
                     return Amount;
 
-                cout << "\n\t\tInvalid Amount";
+                cout << "\nInvalid Amount";
 
                 CounterAttempts++;
                 if (CounterAttempts == 3)
@@ -243,11 +298,11 @@ namespace MainMenu
 
             bool ValidBalance;
             CounterAttempts = 0;
-            cout << "\n\t\tYou only have 3 attempts";
+            cout << "\nYou only have 3 attempts";
             while (DiscountAmount >= Users[UserIndex].AccountsList[AccountIndex].Balance)
             {
 
-                cout << "\n\t\tAmount Not Found";
+                cout << "\nAmount Not Found";
                 Amount = GetValidAmount(Amount);
                 DiscountAmount = Amount + Amount * 0.01;
                 CounterAttempts++;
@@ -266,10 +321,10 @@ namespace MainMenu
 
 
 
-            cout << "\n\t\tYou only have 3 attempts";
+            cout << "\nYou only have 3 attempts";
             CardNumber = GetValidCardNumber(CardNumber);
             AccountIndex = AccountSearch(CardNumber);
-            cout << "\n\t\tYou only have 3 attempts";
+            cout << "\nYou only have 3 attempts";
             Amount = GetValidAmount(Amount);
 
 
@@ -278,8 +333,8 @@ namespace MainMenu
             cout << "\n====================================\n";
             cout << "       TRANSACTION SUCCESSFUL       \n";
             cout << "====================================\n";
-            cout << "\t\tAmount : " << Amount << " EGP\n";
-            cout << "\t\tNew Balance: " << Users[UserIndex].AccountsList[AccountIndex].Balance << " EGP\n";
+            cout << "Amount : " << Amount << " EGP\n";
+            cout << "New Balance: " << Users[UserIndex].AccountsList[AccountIndex].Balance << " EGP\n";
             ShowDateTime();
             cout << "====================================\n";
 
@@ -294,10 +349,10 @@ namespace MainMenu
 
 
 
-            cout << "\n\t\tYou only have 3 attempts";
+            cout << "\nYou only have 3 attempts";
             CardNumber = GetValidCardNumber(CardNumber);
             AccountIndex = AccountSearch(CardNumber);
-            cout << "\n\t\tYou only have 3 attempts";
+            cout << "\nYou only have 3 attempts";
             Amount = GetValidAmount(Amount); // amount positive
             TotalAmount = EnsureBalance(Amount, AccountIndex); // amount+taxes<= Balance
 
@@ -306,71 +361,71 @@ namespace MainMenu
             cout << "\n====================================\n";
             cout << "       TRANSACTION SUCCESSFUL       \n";
             cout << "====================================\n";
-            cout << "\t\tAmount : " << Amount << " EGP\n";
-            cout << "\t\tTaxes : " << Amount * 0.01 << " EGP\n";
-            cout << "\t\tAmount was Drawen : " << TotalAmount << " EGP\n";
-            cout << "\t\tNew Balance: " << Users[UserIndex].AccountsList[AccountIndex].Balance << " EGP\n";
+            cout << "Amount : " << Amount << " EGP\n";
+            cout << "Taxes : " << Amount * 0.01 << " EGP\n";
+            cout << "Amount was Drawen : " << TotalAmount << " EGP\n";
+            cout << "New Balance: " << Users[UserIndex].AccountsList[AccountIndex].Balance << " EGP\n";
             ShowDateTime();
             cout << "====================================\n";
 
-
+            
         }
 
 
-        void ExecuteUserChoice(int Choice)
-        {
+        //void ExecuteUserChoice(int Choice)
+        //{
 
 
-            switch (Choice) {
-            case 1:
+        //    switch (Choice) {
+        //    case 1:
 
-                CheckBalance();
+        //        CheckBalance();
 
-                break;
-            case 2:
-                AddNewAccount();
+        //        break;
+        //    case 2:
+        //        AddNewAccount();
 
-                break;
-            case 3:
+        //        break;
+        //    case 3:
 
-                Transfer();
+        //        Transfer();
 
-                break;
-            case 4:
+        //        break;
+        //    case 4:
 
-                UserInfo();
-
-
-                break;
-            case 5:
-
-                CheckTransactions();
-
-                break;
-            case 6:
-
-                Donate();
-
-                break;
-            case 7:
-                CounterAttempts = 0;
-                Deposit();
-
-                break;
-            case 8:
-                CounterAttempts = 0;
-                WithDraw();
-
-                break;
-
-            case 9:
-                ShowLoading();
-                system("cls");
-                Login();
-
-                break;
+        //        UserInfo();
 
 
-            }
-        }
+        //        break;
+        //    case 5:
+
+        //        CheckTransactions();
+
+        //        break;
+        //    case 6:
+
+        //        Donate();
+
+        //        break;
+        //    case 7:
+        //        CounterAttempts = 0;
+        //        Deposit();
+
+        //        break;
+        //    case 8:
+        //        CounterAttempts = 0;
+        //        WithDraw();
+
+        //        break;
+
+        //    case 9:
+        //        ShowLoading();
+        //        system("cls");
+        //        LoGin();
+
+        //        break;
+
+
+        //    }
+        //}
     }

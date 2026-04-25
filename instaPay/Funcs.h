@@ -19,8 +19,8 @@ void SignUp();
 void Menu();
 void MainWindow();
 void Transfer();
-void Deposit();
-void Witdraw();
+
+
 void CheckBalance();
 void AddNewAccount();
 void CheckTransactions();
@@ -45,12 +45,12 @@ void Menu() {
 void MainWindow() {
 
 };
-void Witdraw() {
+//void Witdraw() {
 
-}
-void Deposit() {
+//}
+//void Deposit() {
 
-}
+//}
 
 
 
