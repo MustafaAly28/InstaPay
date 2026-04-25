@@ -249,7 +249,7 @@ namespace Login {
                 cout << "Enter Bank Name : ";
                 getline(cin >> ws, CheckBank);
                 if (ValidBank(CheckBank)) {
-                    Users[AddingUsersCounter].AccountsList[0].BankName = CheckBank;
+                    Users[UserIndex].AccountsList[0].BankName = CheckBank;
                     break;
                 }
                 else {
@@ -261,7 +261,7 @@ namespace Login {
                 cout << "Enter Card Number : ";
                 cin >> CheckCard;
                 if (ValidCardNumber(CheckCard)) {
-                    Users[AddingUsersCounter].AccountsList[0].CardNumber = CheckCard;
+                    Users[UserIndex].AccountsList[0].CardNumber = CheckCard;
                     break;
                 }
             }
@@ -271,7 +271,7 @@ namespace Login {
                 cout << "Enter Expiration Date (MM/YY) : \n";
                 cin >> CheckExp;
                 if (ValidExpirationDate(CheckExp)) {
-                    Users[AddingUsersCounter].AccountsList[0].ExpirationDate = CheckExp;
+                    Users[UserIndex].AccountsList[0].ExpirationDate = CheckExp;
                     break;
                 }
                 else { cout << "Invalid Expiration Date! Please enter a valid date in MM/YY format.\n"; }
@@ -279,7 +279,7 @@ namespace Login {
 
             cout << "Enter Holder Name : ";
             cin.ignore();
-            getline(cin, Users[AddingUsersCounter].AccountsList[0].HolderName);
+            getline(cin, Users[UserIndex].AccountsList[0].HolderName);
 
 
             while (true) {
@@ -287,7 +287,7 @@ namespace Login {
                 cout << "Enter CVV Code : ";
                 cin >> CheckCVV;
                 if (ValidCVV(CheckCVV)) {
-                    Users[AddingUsersCounter].AccountsList[0].CVVCode = CheckCVV;
+                    Users[UserIndex].AccountsList[0].CVVCode = CheckCVV;
                     break;
                 }
             }
@@ -296,16 +296,16 @@ namespace Login {
                 string CheckPIN;
                 cin >> CheckPIN;
                 if (ValidPIN(CheckPIN)) {
-                    Users[AddingUsersCounter].AccountsList[0].PINCode = CheckPIN;
+                    Users[UserIndex].AccountsList[0].PINCode = CheckPIN;
                     break;
                 }
             }
 
         
-            Users[AddingUsersCounter].AccountsList[0].Balance =( rand() % 9001)+1000; // Random balance between 1000 and 10000
-			cout << "your initial balance is : " << Users[AddingUsersCounter].AccountsList[0].Balance << endl;
+            Users[UserIndex].AccountsList[0].Balance =( rand() % 9001)+1000; // Random balance between 1000 and 10000
+			cout << "your initial balance is : " << Users[UserIndex].AccountsList[0].Balance << endl;
             cout << "\nAccount Registered Successfully!\n";
-
+			break;  //adding break at the end of while loop
         }
     }
 
@@ -439,7 +439,7 @@ namespace Login {
            cout << "Enter your password : ";
            cin>> CheckPassword ;
            cin.ignore(1000, '\n');
-           int UserIndex = FindUser(CheckName, CheckPassword);
+           UserIndex = FindUser(CheckName, CheckPassword); // remove int
             if (UserIndex != -1) {
 
                 ShowLoading();
