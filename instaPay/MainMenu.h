@@ -19,7 +19,7 @@ using namespace DataLayer;
 namespace MainMenu
 {
 
-    int UserIndex = -1;
+    //int UserIndex = -1;
     int CounterAttempts = 0;
    
 
@@ -56,7 +56,7 @@ namespace MainMenu
 
         int GetUserChoice() {
             int Choice;
-            cout << "\n\t\tEnter Your Choice from (1-9)\n";
+            cout << "\n\t\tEnter Your Choice from (0-9)\n";
             cout << "\t\t";
             cin >> Choice;
             return Choice;
