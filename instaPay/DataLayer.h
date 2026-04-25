@@ -12,6 +12,7 @@ const int USERS_COUNT = 10;
 int AddingUsersCounter = 0;
 const int MAX_TRANSACTIONS_PER_USER = 10;
 int AddingTransactionsCounter = 0;
+int Account_Count = 0;   // counter for accounts
 
 struct StAddress
 {
