@@ -245,9 +245,9 @@ namespace MainMenu
 
                 break;
 
-
-
-
+            default:
+                Exist = true;
+                cout << "Thank You";
 
             }
             if (Exist)
