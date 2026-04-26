@@ -13,13 +13,13 @@
 //using namespace Funcs;
 using namespace Login;
 using namespace std;
-///using namespace Login;
+//using namespace Login;
 
 namespace MainMenu
 {
     void Deposit();
     void WithDraw();
-    //int UserIndex = -1;
+    /*int UserIndex =-1;*/
     int CounterAttempts = 0;
 
     
@@ -96,6 +96,7 @@ namespace MainMenu
        
         return PIN;
     }
+
     void CheckPIN(string PIN,int AccountIndex) {
 
         cout << "\nYou only have 3 attempts";
@@ -113,7 +114,7 @@ namespace MainMenu
 
                 }
            
-            cout << "\nInvalid PIN";
+            cout << "Invalid PIN Or Does Not Exist";
             CounterAttempts++;
 
 
@@ -154,15 +155,15 @@ namespace MainMenu
 
             system("Color 0E"); // Color The Font
 
-            cout << "\n\t\t========================================";
-            cout << "\n\t\t            INSTAPAY EGYPT             ";
-            cout << "\n\t\t========================================";
-            cout << "\n\t\t  1. Check Balance      2. Add Account";
-            cout << "\n\t\t  3. Transfer           4. User Info";
-            cout << "\n\t\t  5. Transactions       6. Donation";
-            cout << "\n\t\t  7. Deposit            8. Withdraw";
-            cout << "\n\t\t  9. Logout             0.Exist    ";
-            cout << "\n\t\t========================================";
+            cout << "\n========================================";
+            cout << "\n            INSTAPAY EGYPT             ";
+            cout << "\n========================================";
+            cout << "\n  1. Check Balance      2. Add Account";
+            cout << "\n  3. Transfer           4. User Info";
+            cout << "\n  5. Transactions       6. Donation";
+            cout << "\n  7. Deposit            8. Withdraw";
+            cout << "\n  9. Logout             0.Exist    ";
+            cout << "\n========================================";
 
             
 
@@ -264,7 +265,7 @@ namespace MainMenu
             return CardNumber;
         }
 
-        bool ValidCardNumber(string CardNumber) {
+    /*    bool ValidCardNumber(string CardNumber) {
             bool ValidCardNumber= true;
             if (CardNumber[0] != '5' && CardNumber[0] != '4')
             {
@@ -285,8 +286,8 @@ namespace MainMenu
 
 
             return ValidCardNumber;
-        }
-        string GetValidCardNumber(string CardNumber) {
+        }*/
+      /*  string GetValidCardNumber(string CardNumber) {
 
             cout << "\nYou only have 3 attempts";
             while (true)
@@ -296,12 +297,12 @@ namespace MainMenu
                 if (ValidCardNumber(CardNumber)==true)
                 {
                     CounterAttempts = 0;
-                    cout << "Onther Check";
+                    
                     ShowLoading();
                     return CardNumber;
 
                 }
-                cout << "\nInvalid Card Number";
+                cout << "Invalid Card Number";
                 CounterAttempts++;
 
 
@@ -317,7 +318,7 @@ namespace MainMenu
 
 
 
-        }
+        }*/
         bool CheckAccountExist(string CardNumber)
         {
        
@@ -388,12 +389,12 @@ namespace MainMenu
 
             double Amount = 0;
             string CardNumber;
-            int AccountIndex;
+            int AccountIndex=1;
             bool ValidAmount;
 
            
            
-            CardNumber = GetValidCardNumber(CardNumber);
+            CardNumber = GetCardNumber();
             if (CheckAccountExist(CardNumber)==true) 
             {
                 for (int Index = 0; Index < Users[UserIndex].CountAccounts ; Index++) // Know  Which Any Account Belong To His Card Number
@@ -412,8 +413,8 @@ namespace MainMenu
                
                 do
                 {
-                cout << "Your Account Not Exist In System";
-                CardNumber = GetValidCardNumber(CardNumber);
+                cout << "Invalid Card Number Or Does Not Exist";
+                CardNumber = GetCardNumber();
 
                 } while (CheckAccountExist(CardNumber)==false);
             }
@@ -439,12 +440,13 @@ namespace MainMenu
         void WithDraw() {
             double Amount = 0;
             string CardNumber;
-            int AccountIndex;
+            int AccountIndex=1;
+            string PIN;
           
            
            
 
-            CardNumber = GetValidCardNumber(CardNumber);
+            CardNumber = GetCardNumber();
             if (CheckAccountExist(CardNumber)==true)
             {
                 for (int Index = 0; Index < Users[UserIndex].CountAccounts; Index++) // Know  Which Any Account Belong To His Card Number
@@ -463,17 +465,15 @@ namespace MainMenu
 
                 do
                 {
-                    cout << "Your Account Not Exist In System";
-                    CardNumber = GetValidCardNumber(CardNumber);
+                    cout << "Invalid CardNumber Or Does Not Exist";
+                    CardNumber = GetCardNumber();
 
                 } while (CheckAccountExist(CardNumber) == false);
             }
 
 
             Amount = GetValidAmount(Amount,AccountIndex,true);
-            
-            string PIN;
-            
+        
             
             CheckPIN(PIN, AccountIndex);
 

@@ -7,7 +7,7 @@
 #include "DataLayer.h"
 #include <cstdlib>
 #include <ctime>
-//#include "MainMenu.h"
+#include "MainMenu.h"
 using namespace std;
 using namespace DataLayer;
 //using namespace MainMenu;
@@ -307,6 +307,7 @@ namespace Login {
 			cout << "your initial balance is : " << Users[UserIndex].AccountsList[0].Balance << endl;
             cout << "\nAccount Registered Successfully!\n";
             Users[UserIndex].CountAccounts++;
+            
 			break;  //adding break at the end of while loop
         }
     }
@@ -456,9 +457,12 @@ namespace Login {
                 if (Users[UserIndex].CountAccounts == 0) {
                     FirstAccount();
                 }
-
+                else
+                {
+                    
+                MainMenu::mainWindow(); 
+                }
                 
-                //MainMenu::mainWindow(); 
 
                 return; 
             }

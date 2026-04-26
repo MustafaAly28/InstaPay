@@ -131,6 +131,6 @@ int main() {
     srand((unsigned int)time(0));
     system("color 0E");
     HaveAccount();
-    mainWindow();
+  
     
 }
