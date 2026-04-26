@@ -18,7 +18,7 @@ struct StAddress
 {
 	string Street;
 	string City;
-	string HomeNumber;
+	int HomeNumber;
 };
 
 struct StAccount
