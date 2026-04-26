@@ -410,16 +410,14 @@ namespace Login {
 
         Users[AddingUsersCounter].Password = Confirm;
         
-
+        Users[AddingUsersCounter].CountAccounts=0;
         Users[AddingUsersCounter].Id = AddingUsersCounter + 1;
         AddingUsersCounter++;
 		cout << "Sign Up Successful!\n";
 		cout << "Your ID is : " << Users[AddingUsersCounter - 1].Id << endl;
         LoGin();
 
-        //SaveToFile(); // حفظ البيانات في الملف
-       // ShowLoading();
-        //cout << "User Registered Successfully!" << endl;
+       
         cin.ignore();
     }
 
