@@ -9,11 +9,13 @@
 #include <cstdlib>
 #include <ctime>
 #include <cctype>
+#include "TransferCheck.h"
 #define _CRT_SECURE_NO_WARNINGS
 //#include"Funcs.h"
 //using namespace Funcs;
 using namespace Login;
 using namespace std;
+using namespace TransferBalanceAndCheck;
 //using namespace Login;
 namespace Login { extern int UserIndex; }
 namespace MainMenu
@@ -192,7 +194,7 @@ namespace MainMenu
 
             switch (Choice) {
             case 1:
-                //CheckBalance();
+                checkBalance();
 
                 break;
             case 2:
@@ -201,7 +203,7 @@ namespace MainMenu
                 break;
             case 3:
 
-                //Transfer();
+                transfer();
 
                 break;
             case 4:
