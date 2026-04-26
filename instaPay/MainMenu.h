@@ -9,12 +9,13 @@
 #include <cstdlib>
 #include <ctime>
 #include <cctype>
+#define _CRT_SECURE_NO_WARNINGS
 //#include"Funcs.h"
 //using namespace Funcs;
 using namespace Login;
 using namespace std;
 //using namespace Login;
-
+namespace Login { extern int UserIndex; }
 namespace MainMenu
 {
     void Deposit();
@@ -22,7 +23,7 @@ namespace MainMenu
     /*int UserIndex =-1;*/
     int CounterAttempts = 0;
 
-    
+
     void ShowLoading() {
         cout << "\nLoading";
         for (int i = 0; i < 3; i++) {
@@ -34,10 +35,9 @@ namespace MainMenu
     }           // Loading
     void ShowDateTime() {
         time_t now = time(0);
-        char dt[26];
-        ctime_s(dt, sizeof(dt), &now);
+        
 
-        cout << "Date & Time: " << dt;
+        cout << "Date & Time: " << ctime(&now);
     }           //Show Date And Time
     void SystemSecurity() {
 
@@ -93,27 +93,27 @@ namespace MainMenu
         string PIN;
         cout << "\nEnter PIN : ";
         cin >> PIN;
-       
+
         return PIN;
     }
 
-    void CheckPIN(string PIN,int AccountIndex) {
+    void CheckPIN(string PIN, int AccountIndex) {
 
         cout << "\nYou only have 3 attempts";
         while (true)
         {
-            
-            PIN = GetPIN();
-          
-                if (Users[UserIndex].AccountsList[AccountIndex].PINCode == PIN)
-                {
-                    CounterAttempts = 0;
-                    system("cls");
-                    return;
-                    
 
-                }
-           
+            PIN = GetPIN();
+
+            if (Users[UserIndex].AccountsList[AccountIndex].PINCode == PIN)
+            {
+                CounterAttempts = 0;
+                system("cls");
+                return;
+
+
+            }
+
             cout << "Invalid PIN Or Does Not Exist";
             CounterAttempts++;
 
@@ -123,7 +123,7 @@ namespace MainMenu
                 SystemSecurity();
                 system("cls");
             }
-           
+
         }
 
 
@@ -132,7 +132,7 @@ namespace MainMenu
     }
 
     bool Exist = false;
-   
+
     void AskUser(char Answer)
     {
         while (Answer != 'Y' && Answer != 'y' && Answer != 'N' && Answer != 'n')
@@ -149,8 +149,8 @@ namespace MainMenu
         }
     }
     void mainWindow() {
-       
-     bool ValidChoice;
+
+        bool ValidChoice;
         while (true) {
 
             system("Color 0E"); // Color The Font
@@ -165,28 +165,28 @@ namespace MainMenu
             cout << "\n  9. Logout             0.Exist    ";
             cout << "\n========================================";
 
-            
+
 
 
             char Answer;
             int Choice;
             do
             {
-            
-            cout << "\nEnter Your Choice from (0-9) : ";
-            cin >> Choice;
-            
-        
-            if (Choice >= 0 && Choice <= 9)
-            {
-               
-                ValidChoice = true;
-            }
-            else
-            {
-                cout << "Invalid Choice !";
-                ValidChoice = false;
-            }
+
+                cout << "\nEnter Your Choice from (0-9) : ";
+                cin >> Choice;
+
+
+                if (Choice >= 0 && Choice <= 9)
+                {
+
+                    ValidChoice = true;
+                }
+                else
+                {
+                    cout << "Invalid Choice !";
+                    ValidChoice = false;
+                }
 
             } while (ValidChoice == false);
 
@@ -245,8 +245,8 @@ namespace MainMenu
 
                 break;
 
-           
-                    
+
+
 
 
             }
@@ -256,14 +256,14 @@ namespace MainMenu
 
 
     }
-         
 
-        string GetCardNumber() {
-            string CardNumber;
-            cout << "\nEnter CardNumber As XXXX XXXX XXXX XXXX : ";
-            cin >> CardNumber;
-            return CardNumber;
-        }
+
+    string GetCardNumber() {
+        string CardNumber;
+        cout << "\nEnter CardNumber As XXXX XXXX XXXX XXXX : ";
+        cin >> CardNumber;
+        return CardNumber;
+    }
 
     /*    bool ValidCardNumber(string CardNumber) {
             bool ValidCardNumber= true;
@@ -287,137 +287,140 @@ namespace MainMenu
 
             return ValidCardNumber;
         }*/
-      /*  string GetValidCardNumber(string CardNumber) {
+        /*  string GetValidCardNumber(string CardNumber) {
 
-            cout << "\nYou only have 3 attempts";
-            while (true)
+              cout << "\nYou only have 3 attempts";
+              while (true)
+              {
+
+                  CardNumber = GetCardNumber();
+                  if (ValidCardNumber(CardNumber)==true)
+                  {
+                      CounterAttempts = 0;
+
+                      ShowLoading();
+                      return CardNumber;
+
+                  }
+                  cout << "Invalid Card Number";
+                  CounterAttempts++;
+
+
+                  if (CounterAttempts == 3) {
+                      CounterAttempts = 0;
+                      SystemSecurity();
+                      system("cls");
+                  }
+
+
+              }
+
+
+
+
+          }*/
+    bool CheckAccountExist(string CardNumber)
+    {
+
+
+        for (int Index = 0; Index < 3; Index++) // Know  Which Any Account Belong To His Card Number
+        {
+            if (Users[UserIndex].AccountsList[Index].CardNumber == CardNumber)
             {
 
-                CardNumber = GetCardNumber();
-                if (ValidCardNumber(CardNumber)==true)
-                {
-                    CounterAttempts = 0;
-                    
-                    ShowLoading();
-                    return CardNumber;
 
-                }
-                cout << "Invalid Card Number";
-                CounterAttempts++;
-
-
-                if (CounterAttempts == 3) {
-                    CounterAttempts = 0;
-                    SystemSecurity();
-                    system("cls");
-                }
-
+                return true;
 
             }
+        }
+        return false;
+    }
 
+    double GetAmount() {
+        double Amount;
+        cout << "\nAmount : ";
+        cin >> Amount;
+        return Amount;
+    }
 
+    double GetValidAmount(double Amount, int AccountIndex, bool OperatorDeposite = false) {
+        bool ValidAmount = true;
 
-
-        }*/
-        bool CheckAccountExist(string CardNumber)
+        cout << "\nYou only have 3 attempts";
+        do
         {
-       
-
-            for (int Index = 0; Index < Users[UserIndex].CountAccounts; Index++) // Know  Which Any Account Belong To His Card Number
-                {
-                    if (Users[UserIndex].AccountsList[Index].CardNumber == CardNumber)
-                    {
-
-                    
-                        return true;
-
-                    }
-                }
-            return false;
-        }
-
-        double GetAmount() {
-            double Amount;
-            cout << "\nAmount : ";
-            cin >> Amount;
-            return Amount;
-        }
-   
-        double GetValidAmount(double Amount,int AccountIndex,bool OperatorDeposite=false) {
-            bool ValidAmount =true;
-           
-            cout << "\nYou only have 3 attempts";
-            do
+            ValidAmount = true;
+            Amount = GetAmount();
+            if (Amount <= 0)
             {
-                ValidAmount = true;
-                Amount = GetAmount();
-                if (Amount <= 0)
-                {
-                    cout << "Amount Must Be positive";
-                    ValidAmount = false;
-                   
-                }
-                if (OperatorDeposite) 
-                {
-                if ((Amount+Amount*0.01)> Users[UserIndex].AccountsList[AccountIndex].Balance)//taxex+amount
+                cout << "Amount Must Be positive";
+                ValidAmount = false;
+
+            }
+            if (OperatorDeposite)
+            {
+                if ((Amount + Amount * 0.01) > Users[UserIndex].AccountsList[AccountIndex].Balance)//taxex+amount
                 {
 
                     cout << "Balance Not Enough";
                     ValidAmount = false;
 
                 }
-                }
-                if(ValidAmount==false)
-                    CounterAttempts++;
+            }
+            if (ValidAmount == false)
+                CounterAttempts++;
 
-                
-                
 
-                if (CounterAttempts == 3)
-                {
-                    CounterAttempts = 0;
-                    SystemSecurity();
-                    system("cls");
-                }
-                
-            } while (ValidAmount==false);
-            CounterAttempts = 0;
-            return Amount;
+
+
+            if (CounterAttempts == 3)
+            {
+                CounterAttempts = 0;
+                SystemSecurity();
+                system("cls");
+            }
+
+        } while (ValidAmount == false);
+        CounterAttempts = 0;
+        return Amount;
+    }
+
+    void Deposit() {
+
+        double Amount = 0;
+        string CardNumber;
+        int AccountIndex ;
+        bool ValidAmount;
+
+
+
+
+
+
+
+
+        while (true)
+        {
+
+            CardNumber = GetCardNumber();
+            if (CheckAccountExist(CardNumber) == true)
+                break;
+            else
+                cout << "Invalid Card Number Or Does Not Exist";        
+
         }
 
-        void Deposit() {
-
-            double Amount = 0;
-            string CardNumber;
-            int AccountIndex=1;
-            bool ValidAmount;
-
-           
-           
-            CardNumber = GetCardNumber();
-            if (CheckAccountExist(CardNumber)==true) 
+        for (int Index = 0; Index < 3; Index++) // Know  Which Any Account Belong To His Card Number
+        {
+            if (Users[UserIndex].AccountsList[Index].CardNumber == CardNumber)
             {
-                for (int Index = 0; Index < Users[UserIndex].CountAccounts ; Index++) // Know  Which Any Account Belong To His Card Number
-                {
-                    if (Users[UserIndex].AccountsList[Index].CardNumber== CardNumber)
-                    {
 
-                        AccountIndex = Index;
-                        
+                AccountIndex = Index;
 
-                    }
-                }
+
             }
-            else
-            {
-               
-                do
-                {
-                cout << "Invalid Card Number Or Does Not Exist";
-                CardNumber = GetCardNumber();
-
-                } while (CheckAccountExist(CardNumber)==false);
-            }
+        }
+   
             
            
             Amount = GetValidAmount(Amount,AccountIndex);
@@ -440,37 +443,33 @@ namespace MainMenu
         void WithDraw() {
             double Amount = 0;
             string CardNumber;
-            int AccountIndex=1;
+            int AccountIndex={};
             string PIN;
           
            
            
 
-            CardNumber = GetCardNumber();
-            if (CheckAccountExist(CardNumber)==true)
+            while (true)
             {
-                for (int Index = 0; Index < Users[UserIndex].CountAccounts; Index++) // Know  Which Any Account Belong To His Card Number
+
+                CardNumber = GetCardNumber();
+                if (CheckAccountExist(CardNumber) == true)
+                    break;
+                else
+                    cout << "Invalid Card Number Or Does Not Exist";
+
+            }
+
+            for (int Index = 0; Index < 3; Index++) // Know  Which Any Account Belong To His Card Number
+            {
+                if (Users[UserIndex].AccountsList[Index].CardNumber == CardNumber)
                 {
-                    if (Users[UserIndex].AccountsList[Index].CardNumber == CardNumber)
-                    {
 
-                        AccountIndex = Index;
+                    AccountIndex = Index;
 
 
-                    }
                 }
             }
-            else
-            {
-
-                do
-                {
-                    cout << "Invalid CardNumber Or Does Not Exist";
-                    CardNumber = GetCardNumber();
-
-                } while (CheckAccountExist(CardNumber) == false);
-            }
-
 
             Amount = GetValidAmount(Amount,AccountIndex,true);
         

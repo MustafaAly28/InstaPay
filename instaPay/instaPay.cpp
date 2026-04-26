@@ -9,9 +9,9 @@
 #include"FilesLayer.h"
 #include"DataLayer.h"
 #include "Login.h"
+#include "MainMenu.h"
 #include "Services.h"
 #include "Validation.h"
-#include "MainMenu.h"
 
 using namespace Validation;
 using namespace File;
@@ -130,7 +130,8 @@ using namespace std;
 int main() {
     srand((unsigned int)time(0));
     system("color 0E");
-    HaveAccount();
+    Login::HaveAccount();
+    
   
     
 }

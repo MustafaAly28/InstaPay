@@ -7,7 +7,10 @@
 #include "DataLayer.h"
 #include <cstdlib>
 #include <ctime>
-#include "MainMenu.h"
+//#include "MainMenu.h"
+namespace MainMenu {
+    void mainWindow();
+}
 using namespace std;
 using namespace DataLayer;
 //using namespace MainMenu;
@@ -17,7 +20,7 @@ namespace Login {
     void LoGin();
     void HaveAccount();
     void FirstAccount();
-    int UserIndex;
+    inline int UserIndex;
 
     int FindUser(string Name, string Pass) {
         for (int i = 0; i < AddingUsersCounter; i++) {
@@ -457,11 +460,11 @@ namespace Login {
                 if (Users[UserIndex].CountAccounts == 0) {
                     FirstAccount();
                 }
-                else
-                {
+                
+               
                     
                 MainMenu::mainWindow(); 
-                }
+                
                 
 
                 return; 
