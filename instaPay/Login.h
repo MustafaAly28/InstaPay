@@ -390,7 +390,7 @@ namespace Login {
         cout << "Enter street name : ";
 		getline(cin>>ws, Users[AddingUsersCounter].Address.Street);
         cout << "Enter home number : ";
-		getline(cin>>ws, Users[AddingUsersCounter].Address.HomeNumber);
+        getline(cin>>ws, Users[AddingUsersCounter].Address.HomeNumber);
         cout << "-----------------------------\n";
         string Pass, Confirm;
         do {
