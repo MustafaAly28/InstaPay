@@ -8,6 +8,9 @@
 #include <cstdlib>
 #include <ctime>
 //#include "MainMenu.h"
+namespace MainMenu {
+    void mainWindow();
+}
 using namespace std;
 using namespace DataLayer;
 //using namespace MainMenu;
@@ -17,7 +20,7 @@ namespace Login {
     void LoGin();
     void HaveAccount();
     void FirstAccount();
-    int UserIndex;
+    inline int UserIndex;
 
     int FindUser(string Name, string Pass) {
         for (int i = 0; i < AddingUsersCounter; i++) {
@@ -27,7 +30,7 @@ namespace Login {
         }
         return -1;
     }
-   
+
 
     bool ValidePhone(string Phone) {//اجمد حاجة عملتها حتي الأن بيتشك علي انه 11 رقم وكمان يكونوا مصري فودافون اورنج اتصالات هكذا
 
@@ -204,7 +207,7 @@ namespace Login {
             return false;
         }
         int YearInt = stoi(Year);
-        if (YearInt < 0 || YearInt > 99) {
+        if (YearInt < 26 || YearInt > 40) {
             return false;
         }
         return true;
@@ -302,12 +305,13 @@ namespace Login {
                 }
             }
 
-        
-            Users[UserIndex].AccountsList[0].Balance =( rand() % 9001)+1000; // Random balance between 1000 and 10000
-			cout << "your initial balance is : " << Users[UserIndex].AccountsList[0].Balance << endl;
+
+            Users[UserIndex].AccountsList[0].Balance = (rand() % 9001) + 1000; // Random balance between 1000 and 10000
+            cout << "your initial balance is : " << Users[UserIndex].AccountsList[0].Balance << endl;
             cout << "\nAccount Registered Successfully!\n";
             Users[UserIndex].CountAccounts++;
-			break;  //adding break at the end of while loop
+
+            break;  //adding break at the end of while loop
         }
     }
 
@@ -344,12 +348,12 @@ namespace Login {
                     cout << "This name already taken! enter another name.\n" << endl;
                     break;
                 }
-              }
+            }
         } while (IsTaken);
 
         Users[AddingUsersCounter].UserName = TempName;
 
-        
+
 
 
         string CheckEmail;
@@ -365,7 +369,7 @@ namespace Login {
             }
         } while (!EmailFalse);
 
-         
+
 
 
 
@@ -378,15 +382,15 @@ namespace Login {
 
 
         } while (TestPhone == false);
-        
-		cout << "Enter your address details\n";
-		cout << "-----------------------------\n";
-		cout << "Enter city : ";
-        getline(cin>>ws, Users[AddingUsersCounter].Address.City);
+
+        cout << "Enter your address details\n";
+        cout << "-----------------------------\n";
+        cout << "Enter city : ";
+        getline(cin >> ws, Users[AddingUsersCounter].Address.City);
         cout << "Enter street name : ";
-		getline(cin>>ws, Users[AddingUsersCounter].Address.Street);
+        getline(cin >> ws, Users[AddingUsersCounter].Address.Street);
         cout << "Enter home number : ";
-		getline(cin>>ws, Users[AddingUsersCounter].Address.HomeNumber);
+        getline(cin >> ws, Users[AddingUsersCounter].Address.HomeNumber);
         cout << "-----------------------------\n";
         string Pass, Confirm;
         do {
@@ -405,17 +409,15 @@ namespace Login {
         } while (Pass != Confirm);
 
         Users[AddingUsersCounter].Password = Confirm;
-        
 
+        Users[AddingUsersCounter].CountAccounts = 0;
         Users[AddingUsersCounter].Id = AddingUsersCounter + 1;
         AddingUsersCounter++;
-		cout << "Sign Up Successful!\n";
-		cout << "Your ID is : " << Users[AddingUsersCounter - 1].Id << endl;
+        cout << "Sign Up Successful!\n";
+        cout << "Your ID is : " << Users[AddingUsersCounter - 1].Id << endl;
         LoGin();
 
-        //SaveToFile(); // حفظ البيانات في الملف
-       // ShowLoading();
-        //cout << "User Registered Successfully!" << endl;
+
         cin.ignore();
     }
 
@@ -438,7 +440,7 @@ namespace Login {
             cout << "\n========= Login Page ========" << endl;
             cout << "Enter your name : ";
 
-          
+
             if (cin.peek() == '\n') cin.ignore();
             getline(cin, CheckName);
 
@@ -452,25 +454,28 @@ namespace Login {
                 ShowLoading();
                 cout << "Login Successful! Welcome, " << Users[UserIndex].UserName << " Your ID : " << Users[UserIndex].Id << endl;
 
-               
+
                 if (Users[UserIndex].CountAccounts == 0) {
                     FirstAccount();
                 }
 
-                
-                //MainMenu::mainWindow(); 
 
-                return; 
+
+                MainMenu::mainWindow();
+
+
+
+                return;
             }
             else {
                 cout << "Invalid!! username or password." << endl;
                 Counter++;
-                
+
             }
 
         } while (Counter < 3);
 
-        
+
         cout << "\n[!] Access Denied. Returning to start..." << endl;
     }
     void HaveAccount() {

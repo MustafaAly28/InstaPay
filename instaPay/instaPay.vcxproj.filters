@@ -47,5 +47,8 @@
     <ClInclude Include="Funcs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Transfer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

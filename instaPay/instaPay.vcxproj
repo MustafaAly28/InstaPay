@@ -138,6 +138,7 @@
     <ClInclude Include="Login.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Services.h" />
+    <ClInclude Include="Transfer.h" />
     <ClInclude Include="Validation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
