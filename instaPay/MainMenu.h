@@ -3,18 +3,20 @@
 #include <string>
 #include <conio.h>
 #include <fstream> 
-#include <windows.h>
+//#include <windows.h>
 #include "DataLayer.h"
 #include "Login.h"
 #include <cstdlib>
 #include <ctime>
 #include <cctype>
+#include"AddNewAccount.h"
 #include "TransferCheck.h"
 #define _CRT_SECURE_NO_WARNINGS
 //#include"Funcs.h"
 //using namespace Funcs;
 using namespace Login;
 using namespace std;
+using namespace AddNewAccount;
 using namespace TransferBalanceAndCheck;
 //using namespace Login;
 namespace Login { extern int UserIndex; }
@@ -26,18 +28,18 @@ namespace MainMenu
     int CounterAttempts = 0;
 
 
-    void ShowLoading() {
-        cout << "\nLoading";
-        for (int i = 0; i < 3; i++) {
-            cout << ".";
-            Sleep(500); //Delay Time Between Itration
-        }
+    //void ShowLoading() {
+    //    cout << "\nLoading";
+    //    for (int i = 0; i < 3; i++) {
+    //        cout << ".";
+    //        Sleep(500); //Delay Time Between Itration
+    //    }
 
-        cout << "\n";
-    }           // Loading
+    //    cout << "\n";
+    //}           // Loading
     void ShowDateTime() {
         time_t now = time(0);
-        
+
 
         cout << "Date & Time: " << ctime(&now);
     }           //Show Date And Time
@@ -164,7 +166,7 @@ namespace MainMenu
             cout << "\n  3. Transfer           4. User Info";
             cout << "\n  5. Transactions       6. Donation";
             cout << "\n  7. Deposit            8. Withdraw";
-            cout << "\n  9. Logout             0.Exist    ";
+            cout << "\n  9. Logout             0.Exit    ";
             cout << "\n========================================";
 
 
@@ -195,15 +197,26 @@ namespace MainMenu
             switch (Choice) {
             case 1:
                 checkBalance();
-
+                cout << "For Main Menu Y/y To Exist N/n ";
+                cout << "Answer : ";
+                cin >> Answer;
+                AskUser(Answer);
                 break;
             case 2:
-                //AddNewAccount();
+                addNewAccount();
+                cout << "For Main Menu Y/y To Exist N/n ";
+                cout << "Answer : ";
+                cin >> Answer;
+                AskUser(Answer);
 
                 break;
             case 3:
 
                 transfer();
+                cout << "For Main Menu Y/y To Exist N/n ";
+                cout << "Answer : ";
+                cin >> Answer;
+                AskUser(Answer);
 
                 break;
             case 4:
@@ -247,9 +260,6 @@ namespace MainMenu
 
                 break;
 
-            default:
-                Exist = true;
-                cout << "Thank You";
 
             }
             if (Exist)
@@ -391,7 +401,7 @@ namespace MainMenu
 
         double Amount = 0;
         string CardNumber;
-        int AccountIndex ;
+        int AccountIndex;
         bool ValidAmount;
 
 
@@ -408,7 +418,7 @@ namespace MainMenu
             if (CheckAccountExist(CardNumber) == true)
                 break;
             else
-                cout << "Invalid Card Number Or Does Not Exist";        
+                cout << "Invalid Card Number Or Does Not Exist";
 
         }
 
@@ -422,132 +432,132 @@ namespace MainMenu
 
             }
         }
-   
-            
-           
-            Amount = GetValidAmount(Amount,AccountIndex);
-            string PIN;
-           
-            
-            CheckPIN(PIN, AccountIndex);
-
-            Users[UserIndex].AccountsList[AccountIndex].Balance += Amount;
-            ShowLoading();
-            cout << "\n====================================\n";
-            cout << "       TRANSACTION SUCCESSFUL       \n";
-            cout << "====================================\n";
-            cout << "Amount : " << Amount << " EGP\n";
-            cout << "New Balance: " << Users[UserIndex].AccountsList[AccountIndex].Balance << " EGP\n";
-            ShowDateTime();
-            cout << "====================================\n";
-
-        }
-        void WithDraw() {
-            double Amount = 0;
-            string CardNumber;
-            int AccountIndex={};
-            string PIN;
-          
-           
-           
-
-            while (true)
-            {
-
-                CardNumber = GetCardNumber();
-                if (CheckAccountExist(CardNumber) == true)
-                    break;
-                else
-                    cout << "Invalid Card Number Or Does Not Exist";
-
-            }
-
-            for (int Index = 0; Index < 3; Index++) // Know  Which Any Account Belong To His Card Number
-            {
-                if (Users[UserIndex].AccountsList[Index].CardNumber == CardNumber)
-                {
-
-                    AccountIndex = Index;
 
 
-                }
-            }
 
-            Amount = GetValidAmount(Amount,AccountIndex,true);
-        
-            
-            CheckPIN(PIN, AccountIndex);
-
-            Users[UserIndex].AccountsList[AccountIndex].Balance -= (Amount + Amount * 0.01);// Amount+taxes
-            ShowLoading();
-            cout << "\n====================================\n";
-            cout << "       TRANSACTION SUCCESSFUL       \n";
-            cout << "====================================\n";
-            cout << "Amount : " << Amount << " EGP\n";
-            cout << "Taxes : " << Amount * 0.01 << " EGP\n";
-            cout << "Amount was Drawen : " << (Amount+Amount*0.01) << " EGP\n";
-            cout << "New Balance: " << Users[UserIndex].AccountsList[AccountIndex].Balance << " EGP\n";
-            ShowDateTime();
-            cout << "====================================\n";
-
-            
-        }
+        Amount = GetValidAmount(Amount, AccountIndex);
+        string PIN;
 
 
-        //void ExecuteUserChoice(int Choice)
-        //{
+        CheckPIN(PIN, AccountIndex);
 
+        Users[UserIndex].AccountsList[AccountIndex].Balance += Amount;
+        ShowLoading();
+        cout << "\n====================================\n";
+        cout << "       TRANSACTION SUCCESSFUL       \n";
+        cout << "====================================\n";
+        cout << "Amount : " << Amount << " EGP\n";
+        cout << "New Balance: " << Users[UserIndex].AccountsList[AccountIndex].Balance << " EGP\n";
+        ShowDateTime();
+        cout << "====================================\n";
 
-        //    switch (Choice) {
-        //    case 1:
-
-        //        CheckBalance();
-
-        //        break;
-        //    case 2:
-        //        AddNewAccount();
-
-        //        break;
-        //    case 3:
-
-        //        Transfer();
-
-        //        break;
-        //    case 4:
-
-        //        UserInfo();
-
-
-        //        break;
-        //    case 5:
-
-        //        CheckTransactions();
-
-        //        break;
-        //    case 6:
-
-        //        Donate();
-
-        //        break;
-        //    case 7:
-        //        CounterAttempts = 0;
-        //        Deposit();
-
-        //        break;
-        //    case 8:
-        //        CounterAttempts = 0;
-        //        WithDraw();
-
-        //        break;
-
-        //    case 9:
-        //        ShowLoading();
-        //        system("cls");
-        //        LoGin();
-
-        //        break;
-
-
-        //    }
-        //}
     }
+    void WithDraw() {
+        double Amount = 0;
+        string CardNumber;
+        int AccountIndex = {};
+        string PIN;
+
+
+
+
+        while (true)
+        {
+
+            CardNumber = GetCardNumber();
+            if (CheckAccountExist(CardNumber) == true)
+                break;
+            else
+                cout << "Invalid Card Number Or Does Not Exist";
+
+        }
+
+        for (int Index = 0; Index < 3; Index++) // Know  Which Any Account Belong To His Card Number
+        {
+            if (Users[UserIndex].AccountsList[Index].CardNumber == CardNumber)
+            {
+
+                AccountIndex = Index;
+
+
+            }
+        }
+
+        Amount = GetValidAmount(Amount, AccountIndex, true);
+
+
+        CheckPIN(PIN, AccountIndex);
+
+        Users[UserIndex].AccountsList[AccountIndex].Balance -= (Amount + Amount * 0.01);// Amount+taxes
+        ShowLoading();
+        cout << "\n====================================\n";
+        cout << "       TRANSACTION SUCCESSFUL       \n";
+        cout << "====================================\n";
+        cout << "Amount : " << Amount << " EGP\n";
+        cout << "Taxes : " << Amount * 0.01 << " EGP\n";
+        cout << "Amount was Drawen : " << (Amount + Amount * 0.01) << " EGP\n";
+        cout << "New Balance: " << Users[UserIndex].AccountsList[AccountIndex].Balance << " EGP\n";
+        ShowDateTime();
+        cout << "====================================\n";
+
+
+    }
+
+
+    //void ExecuteUserChoice(int Choice)
+    //{
+
+
+    //    switch (Choice) {
+    //    case 1:
+
+    //        CheckBalance();
+
+    //        break;
+    //    case 2:
+    //        AddNewAccount();
+
+    //        break;
+    //    case 3:
+
+    //        Transfer();
+
+    //        break;
+    //    case 4:
+
+    //        UserInfo();
+
+
+    //        break;
+    //    case 5:
+
+    //        CheckTransactions();
+
+    //        break;
+    //    case 6:
+
+    //        Donate();
+
+    //        break;
+    //    case 7:
+    //        CounterAttempts = 0;
+    //        Deposit();
+
+    //        break;
+    //    case 8:
+    //        CounterAttempts = 0;
+    //        WithDraw();
+
+    //        break;
+
+    //    case 9:
+    //        ShowLoading();
+    //        system("cls");
+    //        LoGin();
+
+    //        break;
+
+
+    //    }
+    //}
+}

@@ -175,6 +175,7 @@ namespace File
 				if (Counter < AddingUsersCounter)
 				{
 					Users[Counter].Account = GetAccountFromLine(AccountDataLine);
+					Users[Counter].CountAccounts++;
 					Counter++;
 				}
 			}
@@ -273,7 +274,7 @@ namespace File
 		File.close();
 	}
 
-	void SaveToPersonalFile(const StUser Users[], int CountUsers, const string& FilePersonal)
+	void SaveToPersonalFile(StUser Users[], int CountUsers, const string& FilePersonal)
 	{
 		fstream File;
 		File.open(FilePersonal, ios::out);
@@ -372,7 +373,7 @@ namespace File
 	}
 
 	// if The System In Ending Point Of Processing , Execute This
-	void Access_SaveUsersToFiles(const StUser Users[], const string& AccountsFile, const string& AddressFile, const string& PersonalFile)
+	void Access_SaveUsersToFiles(StUser Users[], const string& AccountsFile, const string& AddressFile, const string& PersonalFile)
 	{
 		SaveToPersonalFile(Users, AddingUsersCounter, PersonalFile);
 

@@ -1,5 +1,5 @@
 #pragma once
-#pragma once
+
 #include <iostream>
 #include <string>
 #include "DataLayer.h"
@@ -42,6 +42,12 @@ namespace TransferBalanceAndCheck
 
         cout << "Enter the receiver's phone number: ";
         cin >> receiverPhone;
+
+        if (receiverPhone == Users[UserIndex].Phone)
+        {
+            cout << "You can't transfer money to your phone number.\n";
+            return;
+        }
 
         for (int i = 0; i < AddingUsersCounter; i++)
         {
@@ -109,29 +115,29 @@ namespace TransferBalanceAndCheck
 
         // (FROM) save transaction
 
-        int tFrom = Users[UserIndex].TransactionsCountFrom;
+        int transactionFrom = Users[UserIndex].TransactionsCountFrom;
 
-        Users[UserIndex].TransactionsFrom[tFrom].PhoneNumber_From =
+        Users[UserIndex].TransactionsFrom[transactionFrom].PhoneNumber_From =
             Users[UserIndex].Phone;
 
-        Users[UserIndex].TransactionsFrom[tFrom].PhoneNumber_To =
+        Users[UserIndex].TransactionsFrom[transactionFrom].PhoneNumber_To =
             Users[receiverIndex].Phone;
 
-        Users[UserIndex].TransactionsFrom[tFrom].Amount = amount;
+        Users[UserIndex].TransactionsFrom[transactionFrom].Amount = amount;
 
         Users[UserIndex].TransactionsCountFrom++;
 
         // (TO) save transaction
 
-        int tTo = Users[receiverIndex].TransactionsCountTo;
+        int transactionTo = Users[receiverIndex].TransactionsCountTo;
 
-        Users[receiverIndex].TransactionsTo[tTo].PhoneNumber_From =
+        Users[receiverIndex].TransactionsTo[transactionTo].PhoneNumber_From =
             Users[UserIndex].Phone;
 
-        Users[receiverIndex].TransactionsTo[tTo].PhoneNumber_To =
+        Users[receiverIndex].TransactionsTo[transactionTo].PhoneNumber_To =
             Users[receiverIndex].Phone;
 
-        Users[receiverIndex].TransactionsTo[tTo].Amount = amount;
+        Users[receiverIndex].TransactionsTo[transactionTo].Amount = amount;
 
         Users[receiverIndex].TransactionsCountTo++;
 
@@ -151,7 +157,6 @@ namespace TransferBalanceAndCheck
 
     void checkBalance()
     {
-
         cout << "Your accounts:\n";
 
         for (int i = 0; i < Users[UserIndex].CountAccounts; i++)
@@ -160,20 +165,37 @@ namespace TransferBalanceAndCheck
                 << Users[UserIndex].AccountsList[i].BankName << endl;
         }
 
-        int choice;
-        cout << "Choose your account: ";
-        cin >> choice;
+        int attempts = 0, choice;
+        bool valid = false;
 
-        if (choice < 1 || choice > Users[UserIndex].CountAccounts)
+        while (attempts < 3)
         {
-            cout << "Invalid choice.\n";
+            cout << "Choose your account: ";
+            cin >> choice;
+
+            if (choice >= 1 && choice <= Users[UserIndex].CountAccounts)
+            {
+                valid = true;
+                break;
+            }
+
+            attempts++;
+
+            if (attempts < 3)
+                cout << "Invalid choice! You have " << 3 - attempts << " attempt(s) left.\n";
+        }
+
+        if (!valid)
+        {
+            cout << "Too many invalid attempts!\n";
             return;
         }
 
-        choice--;
+        choice--; // fix index
 
         cout << "Your Balance is: "
             << Users[UserIndex].AccountsList[choice].Balance
             << endl;
     }
+
 }
