@@ -10,15 +10,15 @@ namespace CheckTransaction
 {
         using namespace std;
 
-        bool isLoggedIn()
-        {
-            if (UserIndex == -1)
-            {
-                cout << "\n Error: Please login first!\n";
-                return false;
-            }
-            return true;
-        }
+        // bool isLoggedIn()
+        // {
+        //     if (UserIndex == -1)
+        //     {
+        //         cout << "\n Error: Please login first!\n";
+        //         return false;
+        //     }
+        //     return true;
+        // }
 
         void PrintTransactionHeader(string title)
         {
@@ -90,8 +90,8 @@ namespace CheckTransaction
 
         void CheckTransactions()
         {
-            if (!isLoggedIn())
-                return;
+            // if (!isLoggedIn())
+            //     return;
 
             PrintTransactionHeader(" TRANSACTIONS ");
 
@@ -101,14 +101,14 @@ namespace CheckTransaction
 
             StUser CurrentUser = Users[UserIndex];
 
-            bool HasAny = (CurrentUser.TransactionsCountFrom > 0 || CurrentUser.TransactionsCountTo > 0);
+            // bool HasAny = (CurrentUser.TransactionsCountFrom > 0 || CurrentUser.TransactionsCountTo > 0);
 
-            if (!HasAny)
-            {
-                cout << "   No Transactions found.\n";
-            }
+            // if (!HasAny)
+            // {
+            //     cout << "   No Transactions found.\n";
+            // }
            
-            cout << "==========================================\n";
+            // cout << "==========================================\n";
         }
     }
 
