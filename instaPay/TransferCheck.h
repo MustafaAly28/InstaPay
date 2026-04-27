@@ -43,6 +43,12 @@ namespace TransferBalanceAndCheck
         cout << "Enter the receiver's phone number: ";
         cin >> receiverPhone;
 
+        if (receiverPhone == Users[UserIndex].Phone)
+        {
+            cout << "You can't transfer money to your phone number.\n";
+            return;
+        }
+
         for (int i = 0; i < AddingUsersCounter; i++)
         {
             if (Users[i].Phone == receiverPhone)
@@ -151,7 +157,6 @@ namespace TransferBalanceAndCheck
 
     void checkBalance()
     {
-
         cout << "Your accounts:\n";
 
         for (int i = 0; i < Users[UserIndex].CountAccounts; i++)
@@ -160,20 +165,37 @@ namespace TransferBalanceAndCheck
                 << Users[UserIndex].AccountsList[i].BankName << endl;
         }
 
-        int choice;
-        cout << "Choose your account: ";
-        cin >> choice;
+        int attempts = 0, choice;
+        bool valid = false;
 
-        if (choice < 1 || choice > Users[UserIndex].CountAccounts)
+        while (attempts < 3)
         {
-            cout << "Invalid choice.\n";
+            cout << "Choose your account: ";
+            cin >> choice;
+
+            if (choice >= 1 && choice <= Users[UserIndex].CountAccounts)
+            {
+                valid = true;
+                break;
+            }
+
+            attempts++;
+
+            if (attempts < 3)
+                cout << "Invalid choice! You have " << 3 - attempts << " attempt(s) left.\n";
+        }
+
+        if (!valid)
+        {
+            cout << "Too many invalid attempts!\n";
             return;
         }
 
-        choice--;
+        choice--; // fix index
 
         cout << "Your Balance is: "
             << Users[UserIndex].AccountsList[choice].Balance
             << endl;
     }
+
 }
