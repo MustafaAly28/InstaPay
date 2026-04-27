@@ -140,7 +140,9 @@ namespace AddNewAccount
         //  Bank Name Validation
         while (true) {
             string CheckBank;
-            cout << " Enter BankName : Avilable Banks : Bank Al Ahly , CIB , Bank Masr , NBE , ADIB , QNB , FAB\n";
+            cout<<"Avilable Banks : Bank Al Ahly , CIB , Bank Masr , NBE , ADIB , QNB , FAB\n";
+            cout << " Enter BankName : ";
+            
             getline(cin >> ws, CheckBank);
 
             if (ValidBank(CheckBank)) {
