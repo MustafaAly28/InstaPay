@@ -130,6 +130,7 @@
     <ClCompile Include="instaPay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddNewAccount.h" />
     <ClInclude Include="CheckTransactions.h" />
     <ClInclude Include="DataLayer.h" />
     <ClInclude Include="FilesLayer.h" />
