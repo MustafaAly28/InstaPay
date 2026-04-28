@@ -1,5 +1,5 @@
 #pragma once
-
+#pragma once
 #include <iostream>
 #include <string>
 #include "DataLayer.h"
@@ -173,6 +173,29 @@ namespace TransferBalanceAndCheck
             }
         }
 
+        string enteredPIN; char choicePinYN;
+
+        while (true)
+        {
+            cout << "Enter PIN for this account: ";
+            cin >> enteredPIN;
+
+            if (enteredPIN == Users[UserIndex].AccountsList[senderAcc].PINCode)
+            {
+                break; // the pin is correct
+            }
+
+            cout << "Incorrect PIN.\n";
+            cout << "Do you want to try again? (Y/N): ";
+            cin >> choicePinYN;
+
+            if (choicePinYN == 'N' || choicePinYN == 'n')
+            {
+                cout << "Operation cancelled.\n";
+                return;
+            }
+        }
+
         // transfer process
 
         Users[UserIndex].AccountsList[senderAcc].Balance -= amount;
@@ -182,29 +205,29 @@ namespace TransferBalanceAndCheck
 
         // (FROM) save transaction
 
-        int transactionFrom = Users[UserIndex].TransactionsCountFrom;
+        int tFrom = Users[UserIndex].TransactionsCountFrom;
 
-        Users[UserIndex].TransactionsFrom[transactionFrom].PhoneNumber_From =
+        Users[UserIndex].TransactionsFrom[tFrom].PhoneNumber_From =
             Users[UserIndex].Phone;
 
-        Users[UserIndex].TransactionsFrom[transactionFrom].PhoneNumber_To =
+        Users[UserIndex].TransactionsFrom[tFrom].PhoneNumber_To =
             Users[receiverIndex].Phone;
 
-        Users[UserIndex].TransactionsFrom[transactionFrom].Amount = amount;
+        Users[UserIndex].TransactionsFrom[tFrom].Amount = amount;
 
         Users[UserIndex].TransactionsCountFrom++;
 
         // (TO) save transaction
 
-        int transactionTo = Users[receiverIndex].TransactionsCountTo;
+        int tTo = Users[receiverIndex].TransactionsCountTo;
 
-        Users[receiverIndex].TransactionsTo[transactionTo].PhoneNumber_From =
+        Users[receiverIndex].TransactionsTo[tTo].PhoneNumber_From =
             Users[UserIndex].Phone;
 
-        Users[receiverIndex].TransactionsTo[transactionTo].PhoneNumber_To =
+        Users[receiverIndex].TransactionsTo[tTo].PhoneNumber_To =
             Users[receiverIndex].Phone;
 
-        Users[receiverIndex].TransactionsTo[transactionTo].Amount = amount;
+        Users[receiverIndex].TransactionsTo[tTo].Amount = amount;
 
         Users[receiverIndex].TransactionsCountTo++;
 
