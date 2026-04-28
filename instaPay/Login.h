@@ -7,7 +7,7 @@
 #include "DataLayer.h"
 #include <cstdlib>
 #include <ctime>
-#include "AddNewAccount.h"
+#include "AddNewAccount"
 //#include "MainMenu.h"
 
 namespace MainMenu {

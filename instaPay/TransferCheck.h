@@ -173,29 +173,6 @@ namespace TransferBalanceAndCheck
             }
         }
 
-        string enteredPIN; char choicePinYN;
-
-        while (true)
-        {
-            cout << "Enter PIN for this account: ";
-            cin >> enteredPIN;
-
-            if (enteredPIN == Users[UserIndex].AccountsList[senderAcc].PINCode)
-            {
-                break; // the pin is correct
-            }
-
-            cout << "Incorrect PIN!\n";
-            cout << "Do you want to try again? (Y/N): ";
-            cin >> choicePinYN;
-
-            if (choicePinYN == 'N' || choicePinYN == 'n')
-            {
-                cout << "Operation cancelled.\n";
-                return;
-            }
-        }
-
         // transfer process
 
         Users[UserIndex].AccountsList[senderAcc].Balance -= amount;
