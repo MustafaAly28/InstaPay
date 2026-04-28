@@ -7,10 +7,13 @@
 #include "DataLayer.h"
 #include <cstdlib>
 #include <ctime>
+
 //#include "MainMenu.h"
+
 namespace MainMenu {
     void mainWindow();
 }
+
 using namespace std;
 using namespace DataLayer;
 //using namespace MainMenu;
@@ -91,47 +94,6 @@ namespace Login {
         if (!HasSymbol) { cout << "Password must include symbol! (#,$,@)\n"; return false; }
         return true;
     }
-
-
-
-
-    bool ValidEmail(string Email) {
-        string AllowedDomains[] = { "@gmail.com", "@yahoo.com", "@outlook.com", "@hotmail.com",//17 Domains
-            "@icloud.com", "@aol.com", "@msn.com","@live.com", "@cox.net", "@me.com", "@comcast.net",//GMass
-            "@ymail.com", "@sbcglobal.net", "@att.net", "@hotmail.it", "@kw.com", "@mail.ru" };//كل الدومينات بتاعة الايميلات دي جايبها من الموقع ده اشهر دومينات  
-
-        int CounterAt = 0;
-        int CounterDot = 0;
-        bool DomainFound = false;
-        for (int i = 0;i < Email.length();i++) {
-
-            if (Email[i] == ' ') {
-                cout << "[!] No spaces allowed!\n";return false;
-            }
-            //if (Email[Email.length()-4] != '.' || Email[Email.length() - 3] != 'c' || Email[Email.length() - 2] != 'o' || Email[Email.length() - 1] != 'm') { cout << "[!] Invalid Email format!\n"; return false; }الكلين كود يبكي في الزاوية
-
-            if (Email[i] == '@') CounterAt++;
-            if (Email[i] == '.') CounterDot++;
-        }
-
-        for (int i = 0;i < AddingUsersCounter;i++) {
-            if (Email == Users[i].Email) { cout << "This Email is not available!" << endl; return false; }
-        }
-        if (CounterAt != 1 || CounterDot < 1) {
-            cout << "[!] Invalid Email format!\n";
-            return false;
-        }
-        for (int i = 0; i < 17;i++) {
-            if (Email.find(AllowedDomains[i]) != string::npos)
-            {
-                DomainFound = true;
-            }
-        }
-        if (!DomainFound) { cout << "[!] Please use a valid email provider \n"; return false; }
-        return true;
-    }
-
-
     string ConvertToLower(string S) {
         for (int i = 0; i < S.length(); i++) {
             S[i] = tolower(S[i]);
@@ -144,7 +106,7 @@ namespace Login {
             S[i] = toupper(S[i]);
         }
         return S;
-    }
+	}
 
 
     bool ValidBank(string BankName)
@@ -235,11 +197,44 @@ namespace Login {
     }
 
 
+    bool ValidEmail(string Email) {
+        string AllowedDomains[] = { "@gmail.com", "@yahoo.com", "@outlook.com", "@hotmail.com",//17 Domains
+            "@icloud.com", "@aol.com", "@msn.com","@live.com", "@cox.net", "@me.com", "@comcast.net",//GMass
+            "@ymail.com", "@sbcglobal.net", "@att.net", "@hotmail.it", "@kw.com", "@mail.ru" };//كل الدومينات بتاعة الايميلات دي جايبها من الموقع ده اشهر دومينات  
+
+        int CounterAt = 0;
+        int CounterDot = 0;
+        bool DomainFound = false;
+        for (int i = 0;i < Email.length();i++) {
+
+            if (Email[i] == ' ') {
+                cout << "[!] No spaces allowed!\n";return false;
+            }
+            //if (Email[Email.length()-4] != '.' || Email[Email.length() - 3] != 'c' || Email[Email.length() - 2] != 'o' || Email[Email.length() - 1] != 'm') { cout << "[!] Invalid Email format!\n"; return false; }الكلين كود يبكي في الزاوية
+
+            if (Email[i] == '@') CounterAt++;
+            if (Email[i] == '.') CounterDot++;
+        }
+
+        for (int i = 0;i < AddingUsersCounter;i++) {
+            if (Email == Users[i].Email) { cout << "This Email is not available!" << endl; return false; }
+        }
+        if (CounterAt != 1 || CounterDot < 1) {
+            cout << "[!] Invalid Email format!\n";
+            return false;
+        }
+        for (int i = 0; i < 17;i++) {
+            if (Email.find(AllowedDomains[i]) != string::npos)
+            {
+                DomainFound = true;
+            }
+        }
+        if (!DomainFound) { cout << "[!] Please use a valid email provider \n"; return false; }
+        return true;
+    }
 
 
-
-
-
+    
 
 
 
