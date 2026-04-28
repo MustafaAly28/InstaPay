@@ -17,7 +17,7 @@ namespace AddNewAccount
         cout << "\n==========================================\n";
     }
 
-    string ConvertToLower(string S)
+    string ConvertTOLower(string S)
     {
         for (int i = 0; i < (int)S.length(); i++)
         {
@@ -36,7 +36,7 @@ namespace AddNewAccount
 
         for (int Bank = 0; Bank < CountBank; Bank++)
         {
-            if (ConvertToLower(BankNames[Bank]) == ConvertToLower(BankName))
+            if (ConvertTOLower(BankNames[Bank]) == ConvertTOLower(BankName))
             {
                 BankName = BankNames[Bank];
                 return IsValid;
@@ -140,7 +140,9 @@ namespace AddNewAccount
         //  Bank Name Validation
         while (true) {
             string CheckBank;
-            cout << " Enter BankName : Avilable Banks : Bank Al Ahly , CIB , Bank Masr , NBE , ADIB , QNB , FAB\n";
+            cout<<"Avilable Banks : Bank Al Ahly, CIB, Bank Masr, NBE, ADIB, QNB, FAB\n";
+            cout << " Enter BankName : ";
+            
             getline(cin >> ws, CheckBank);
 
             if (ValidBank(CheckBank)) {
@@ -161,7 +163,7 @@ namespace AddNewAccount
                 NewAccount.CardNumber = CheckCard;
                 break;
             }
-           // cout << "Invalid Card Number! Please ensure it's 16 digits and starts with 4 or 5.\n";
+            // cout << "Invalid Card Number! Please ensure it's 16 digits and starts with 4 or 5.\n";
         }
 
         //  Expiration_Date Validation

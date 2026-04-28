@@ -7,10 +7,13 @@
 #include "DataLayer.h"
 #include <cstdlib>
 #include <ctime>
+#include "AddNewAccount"
 //#include "MainMenu.h"
+
 namespace MainMenu {
     void mainWindow();
 }
+using namespace AddNewAccount;
 using namespace std;
 using namespace DataLayer;
 //using namespace MainMenu;
@@ -144,102 +147,7 @@ namespace Login {
             S[i] = toupper(S[i]);
         }
         return S;
-    }
-
-
-    bool ValidBank(string BankName)
-    {
-
-
-        string BankNames[] = { "Bank Al Ahly", "CIB" , "Bank Masr" ,"NBE","ADIB","QNB","FAB" };
-        const int CountBank = 7;
-        bool IsValid = true;
-
-        for (int Bank = 0; Bank < CountBank; Bank++)
-        {
-            if (ConvertToLower(BankNames[Bank]) == ConvertToLower(BankName))
-            {
-                BankName = BankNames[Bank];
-                return IsValid;
-            }
-        }
-        return !IsValid;
-
-
-    }
-
-
-    //يارب نتجوز   
-    bool ValidCardNumber(string CardNumber) {
-        if (CardNumber[0] != '5' && CardNumber[0] != '4') {
-            cout << "Card number must start with 4 or 5!\n"; return false;
-        }
-        if (CardNumber.length() != 16) { cout << "Card number must be xxxx xxxx xxxx xxxx!\n"; return false; }
-        for (int i = 0; i < CardNumber.length(); i++) {
-            if (!isdigit(CardNumber[i])) {
-                cout << "Card number must contain only digits!\n"; return false;
-            }
-        }
-        for (int i = 0; i < AddingUsersCounter; i++) {
-            for (int j = 0; j < Users[i].CountAccounts; j++) {
-                if (CardNumber == Users[i].AccountsList[j].CardNumber) {
-                    cout << "This card number is already in use! Please enter a different one." << endl;
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-
-
-    bool ValidExpirationDate(string ExpDate) {
-        if (ExpDate.length() != 5 || ExpDate[2] != '/') {
-            return false;
-        }
-        string Month = ExpDate.substr(0, 2);
-        string Year = ExpDate.substr(3, 2);
-        if (!isdigit(Month[0]) || !isdigit(Month[1]) || !isdigit(Year[0]) || !isdigit(Year[1])) {
-            return false;
-        }
-        int MonthInt = stoi(Month);
-        if (MonthInt < 1 || MonthInt > 12) {
-            return false;
-        }
-        int YearInt = stoi(Year);
-        if (YearInt < 26 || YearInt > 40) {
-            return false;
-        }
-        return true;
-    }
-
-    bool ValidCVV(string CVV) {
-        if (CVV.length() != 3) { cout << "CVV must be 3 digits!\n"; return false; }
-        for (int i = 0; i < CVV.length(); i++) {
-            if (!isdigit(CVV[i])) {
-                cout << "CVV must contain only digits!\n"; return false;
-            }
-        }
-        return true;
-    }
-
-
-    bool ValidPIN(string PIN) {
-        if (PIN.length() != 4) { cout << "PIN must be 4 digits!\n"; return false; }
-        for (int i = 0; i < PIN.length(); i++) {
-            if (!isdigit(PIN[i])) {
-                cout << "PIN must contain only digits!\n"; return false;
-            }
-        }
-        return true;
-    }
-
-
-
-
-
-
-
+	}
 
 
 

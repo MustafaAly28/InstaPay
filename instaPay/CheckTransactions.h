@@ -3,20 +3,22 @@
 #include<string>
 #include"DataLayer.h"
 #include"FilesLayer.h"
+#include"Login.h"
 using namespace std;
+using namespace Login;
 namespace CheckTransaction
 {
         using namespace std;
 
-        bool isLoggedIn()
-        {
-            if (CurrentUserIndex == -1)
-            {
-                cout << "\n Error: Please login first!\n";
-                return false;
-            }
-            return true;
-        }
+        // bool isLoggedIn()
+        // {
+        //     if (UserIndex == -1)
+        //     {
+        //         cout << "\n Error: Please login first!\n";
+        //         return false;
+        //     }
+        //     return true;
+        // }
 
         void PrintTransactionHeader(string title)
         {
@@ -53,7 +55,7 @@ namespace CheckTransaction
         void CheckSentTransactions()
         {
 
-            StUser CurrentUser = Users[CurrentUserIndex];
+            StUser CurrentUser = Users[UserIndex];
             PrintTransactionHeader("SENT TRANSACTIONS");
 
             if (CurrentUser.TransactionsCountFrom == 0)       // Users[CurrentUserIndex].TransactionsCountFrom = currentUser.TransactionsCountFrom
@@ -71,7 +73,7 @@ namespace CheckTransaction
         void CheckReceivedTransactions()
         {
            
-            StUser CurrentUser = Users[CurrentUserIndex];
+            StUser CurrentUser = Users[UserIndex];
             PrintTransactionHeader("RECEIVED TRANSACTIONS");
 
             if (CurrentUser.TransactionsCountTo == 0)        //Users[CurrentUserIndex].TransactionsCountTo = currentUser.TransactionsCountTo
@@ -88,8 +90,8 @@ namespace CheckTransaction
 
         void CheckTransactions()
         {
-            if (!isLoggedIn())
-                return;
+            // if (!isLoggedIn())
+            //     return;
 
             PrintTransactionHeader(" TRANSACTIONS ");
 
@@ -97,16 +99,16 @@ namespace CheckTransaction
 
             CheckReceivedTransactions();
 
-            StUser CurrentUser = Users[CurrentUserIndex];
+            StUser CurrentUser = Users[UserIndex];
 
-            bool HasAny = (CurrentUser.TransactionsCountFrom > 0 || CurrentUser.TransactionsCountTo > 0);
+            // bool HasAny = (CurrentUser.TransactionsCountFrom > 0 || CurrentUser.TransactionsCountTo > 0);
 
-            if (!HasAny)
-            {
-                cout << "   No Transactions found.\n";
-            }
+            // if (!HasAny)
+            // {
+            //     cout << "   No Transactions found.\n";
+            // }
            
-            cout << "==========================================\n";
+            // cout << "==========================================\n";
         }
     }
 
