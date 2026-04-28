@@ -21,58 +21,92 @@ namespace TransferBalanceAndCheck
 
         // Choosing your account to send money from 
 
-        cout << "Choose the sender's account:\n";
+        cout << "Your accounts:\n";
 
         for (int i = 0; i < Users[UserIndex].CountAccounts; i++)
         {
             cout << "[" << i + 1 << "] "
                 << Users[UserIndex].AccountsList[i].BankName << endl;
         }
-        cin >> senderAcc;
 
-        if (senderAcc < 1 || senderAcc > Users[UserIndex].CountAccounts)
+        char choiceSenderYN;
+
+        while (true)
         {
+            cout << "Choose your account: ";
+            cin >> senderAcc;
+
+            if (senderAcc >= 1 && senderAcc <= Users[UserIndex].CountAccounts)
+            {
+                break; // valid
+            }
+
             cout << "Invalid sender account.\n";
-            return;
+            cout << "Do you want to try again? (Y/N): ";
+            cin >> choiceSenderYN;
+
+            if (choiceSenderYN == 'N' || choiceSenderYN == 'n')
+            {
+                cout << "Operation cancelled.\n";
+                return;
+            }
         }
 
         senderAcc--; // fix index
 
         // Enter the receiver's phone number to find accounts
 
-        cout << "Enter the receiver's phone number: ";
-        cin >> receiverPhone;
+        char choiceRecPhoneYN;
 
-        if (receiverPhone == Users[UserIndex].Phone)
+        while (true)
         {
-            cout << "You can't transfer money to your phone number.\n";
-            return;
-        }
+            cout << "Enter the receiver's phone number: ";
+            cin >> receiverPhone;
 
-        for (int i = 0; i < AddingUsersCounter; i++)
-        {
-            if (Users[i].Phone == receiverPhone)
+            if (receiverPhone == Users[UserIndex].Phone)
             {
-                receiverIndex = i;
-                break;
+                cout << "You can't transfer money to your phone number.\n";
             }
-        }
+            else
+            {
+                receiverIndex = -1;
 
-        if (receiverIndex == -1)
-        {
-            cout << "Receiver not found.\n";
-            return;
-        }
+                for (int i = 0; i < AddingUsersCounter; i++)
+                {
+                    if (Users[i].Phone == receiverPhone)
+                    {
+                        receiverIndex = i;
+                        break;
+                    }
+                }
 
-        if (Users[receiverIndex].CountAccounts == 0)
-        {
-            cout << "Receiver has no accounts.\n";
-            return;
+                if (receiverIndex == -1)
+                {
+                    cout << "Receiver not found.\n";
+                }
+                else if (Users[receiverIndex].CountAccounts == 0)
+                {
+                    cout << "Receiver has no accounts.\n";
+                }
+                else
+                {
+                    break; // valid
+                }
+            }
+
+            cout << "Do you want to try again? (Y/N): ";
+            cin >> choiceRecPhoneYN;
+
+            if (choiceRecPhoneYN == 'N' || choiceRecPhoneYN == 'n')
+            {
+                cout << "Operation cancelled.\n";
+                return;
+            }
         }
 
         // Choose the account of the receiver you want to send
 
-        cout << "Choose the receiver's account: \n";
+        cout << "The receiver's accounts: \n";
 
         for (int i = 0; i < Users[receiverIndex].CountAccounts; i++)
         {
@@ -81,29 +115,62 @@ namespace TransferBalanceAndCheck
                 << endl;
         }
 
-        cin >> receiverAcc;
+        char choiceRecAccYN;
 
-        if (receiverAcc < 1 || receiverAcc > Users[receiverIndex].CountAccounts)
+        while (true)
         {
+            cout << "Choose the account: ";
+            cin >> receiverAcc;
+
+            if (receiverAcc >= 1 && receiverAcc <= Users[receiverIndex].CountAccounts)
+            {
+                break; // valid
+            }
+
             cout << "Invalid receiver account.\n";
-            return;
+            cout << "Do you want to try again? (Y/N): ";
+            cin >> choiceRecAccYN;
+
+            if (choiceRecAccYN == 'N' || choiceRecAccYN == 'n')
+            {
+                cout << "Operation cancelled.\n";
+                return;
+            }
         }
 
         receiverAcc--; // fix index
 
-        cout << "Enter amount you want to send: ";
-        cin >> amount;
+        char choiceAmountYN;
 
-        if (amount <= 0)
+        while (true)
         {
-            cout << "Invalid amount.\n";
-            return;
-        }
+            cout << "Enter amount you want to send: ";
+            cin >> amount;
 
-        if (Users[UserIndex].AccountsList[senderAcc].Balance < amount)
-        {
-            cout << "Insufficient balance.\n";
-            return;
+            if (amount > 0)
+            {
+                if (Users[UserIndex].AccountsList[senderAcc].Balance >= amount)
+                {
+                    break; // valid
+                }
+                else
+                {
+                    cout << "Insufficient balance.\n";
+                }
+            }
+            else
+            {
+                cout << "Invalid amount.\n";
+            }
+
+            cout << "Do you want to try again? (Y/N): ";
+            cin >> choiceAmountYN;
+
+            if (choiceAmountYN == 'N' || choiceAmountYN == 'n')
+            {
+                cout << "Operation cancelled.\n";
+                return;
+            }
         }
 
         // transfer process
@@ -165,30 +232,27 @@ namespace TransferBalanceAndCheck
                 << Users[UserIndex].AccountsList[i].BankName << endl;
         }
 
-        int attempts = 0, choice;
-        bool valid = false;
+        int choice; char choiceBalanceYN;
 
-        while (attempts < 3)
+        while (true)
         {
             cout << "Choose your account: ";
             cin >> choice;
 
             if (choice >= 1 && choice <= Users[UserIndex].CountAccounts)
             {
-                valid = true;
-                break;
+                break; // valid
             }
 
-            attempts++;
+            cout << "Invalid choice!\n";
+            cout << "Do you want to try again? (Y/N): ";
+            cin >> choiceBalanceYN;
 
-            if (attempts < 3)
-                cout << "Invalid choice! You have " << 3 - attempts << " attempt(s) left.\n";
-        }
-
-        if (!valid)
-        {
-            cout << "Too many invalid attempts!\n";
-            return;
+            if (choiceBalanceYN == 'N' || choiceBalanceYN == 'n')
+            {
+                cout << "Operation cancelled.\n";
+                return;
+            }
         }
 
         choice--; // fix index
