@@ -34,23 +34,6 @@ namespace DataLayer
 		string HolderName;
 	};
 
-// struct StUser
-// {
-// 	string UserName;
-// 	int Id;
-// 	string Phone;
-// 	string Password;
-// 	string Email;
-// 	StAddress Address;
-// 	StAccount Account;											    // Each User Can Create One Account Only
-// 	StAccount AccountsList[3];	   							    // Each User Can Create Three Accounts Only 
-// 	StTransactions TransactionsFrom[MAX_TRANSACTIONS_PER_USER]; // Transactions (From) History Of User
-// 	StTransactions TransactionsTo[MAX_TRANSACTIONS_PER_USER];  // Transactions (To) History Of User
-// 	int CountAccounts = 0;
-// 	int TransactionsCountFrom = 0;
-// 	int TransactionsCountTo = 0;
-// };
-
 	struct StTransactions
 	{
 		string PhoneNumber_From;

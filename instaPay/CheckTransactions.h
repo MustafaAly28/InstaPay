@@ -112,13 +112,13 @@ namespace CheckTransaction
             // cout << "==========================================\n";
         }
 
-    void PrintTransactionHeader(string title)
-    {
-        cout << "\n==========================================\n";
-        cout << "           " << title << "           ";
-        cout << "\n==========================================\n";
+    //void PrintTransactionHeader(string title)
+    //{
+    //    cout << "\n==========================================\n";
+    //    cout << "           " << title << "           ";
+    //    cout << "\n==========================================\n";
 
-    }
+    //}
 
     string maskPhone(string phone)
     {
@@ -151,14 +151,14 @@ namespace CheckTransaction
         StUser CurrentUser = Users[UserIndex];
         PrintTransactionHeader("SENT TRANSACTIONS");
 
-        if (CurrentUser.TransactionsCountFrom == 0)       // Users[CurrentUserIndex].TransactionsCountFrom = currentUser.TransactionsCountFrom
+        if (CurrentUser.TransactionsCountSending == 0)       // Users[CurrentUserIndex].TransactionsCountFrom = currentUser.TransactionsCountFrom
         {
             cout << "   No sent transactions found.\n";
         }
         else
         {
-            for (int i = 0; i < CurrentUser.TransactionsCountFrom; i++)
-                PrintSingleTransaction(CurrentUser.TransactionsFrom[i], i + 1);
+            for (int i = 0; i < CurrentUser.TransactionsCountSending; i++)
+                PrintSingleTransaction(CurrentUser.TransactionsSending[i], i + 1);
         }
         cout << "==========================================\n";
     }
@@ -169,14 +169,14 @@ namespace CheckTransaction
         StUser CurrentUser = Users[UserIndex];
         PrintTransactionHeader("RECEIVED TRANSACTIONS");
 
-        if (CurrentUser.TransactionsCountTo == 0)        //Users[CurrentUserIndex].TransactionsCountTo = currentUser.TransactionsCountTo
+        if (CurrentUser.TransactionsCountRecieving == 0)        //Users[CurrentUserIndex].TransactionsCountTo = currentUser.TransactionsCountTo
         {
             cout << "   No received transactions found.\n";
         }
         else
         {
-            for (int i = 0; i < CurrentUser.TransactionsCountTo; i++)
-                PrintSingleTransaction(CurrentUser.TransactionsTo[i], i + 1);
+            for (int i = 0; i < CurrentUser.TransactionsCountRecieving; i++)
+                PrintSingleTransaction(CurrentUser.TransactionsRecieving[i], i + 1);
         }
         cout << "==========================================\n";
     }
