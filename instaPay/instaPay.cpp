@@ -27,9 +27,9 @@ using namespace std;
 int main() {
     File::Access_LoadUsersListFromFiles(Users, PersonalInfoFile, AccountsInfoFile, AddressInfoFile, TransactionsInfoFile);
 
-    //srand((unsigned int)time(0));
-    //system("color 0E");
-    //Login::HaveAccount();
+    srand((unsigned int)time(0));
+    system("color 0E");
+    Login::HaveAccount();
 
     File::Access_SaveUsersToFiles(Users, AccountsInfoFile, AddressInfoFile, PersonalInfoFile);
 }

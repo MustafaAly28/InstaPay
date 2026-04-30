@@ -76,7 +76,7 @@ namespace File
 		return Address;
 	}
 
-	StAccount GetAccountFromLine(string LineOfDataAccount, string& ConnectorPhoneNumber)
+	StAccount GetAccountFromLine(string LineOfDataAccount, string &ConnectorPhoneNumber)
 	{
 		string AccountInfo[8] = {};
 		StAccount Account;
@@ -131,7 +131,7 @@ namespace File
 		return (User.Address.Street + "/#/" + User.Address.City + "/#/" + User.Address.HomeNumber);
 	}
 
-	string GetAccountLine(const StAccount& Account, const string& PhoneNumber)
+	string GetAccountLine(const StAccount &Account, const string &PhoneNumber)
 	{
 		string Line = "";
 
@@ -189,6 +189,21 @@ namespace File
 		{
 			FillAccountListForOneUser(Users[UserPosition], FileNameAccount);
 		}
+		//
+		//if (FileAccount.is_open())
+		//{
+		//	string AccountDataLine = "";
+		//	while (getline(FileAccount, AccountDataLine))
+		//	{
+		//		if (Counter < AddingUsersCounter)
+		//		{
+		//			Users[Counter].Account = GetAccountFromLine(AccountDataLine);
+		//			Users[Counter].CountAccounts++;
+		//			Counter++;
+		//		}
+		//	}
+		//}
+		//FileAccount.close();
 	}
 
 	void LoadAddressFromFile(const string& FileNameAddress, StUser Users[])
