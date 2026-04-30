@@ -7,9 +7,12 @@
 #include "DataLayer.h"
 #include <cstdlib>
 #include <ctime>
-#include "AddNewAccount.h"
 
-//#include "MainMenu.h"
+namespace AddNewAccount {
+
+    void addNewAccount();
+    string ConvertTOLower(string S);
+}
 
 namespace MainMenu {
     void mainWindow();
@@ -17,15 +20,14 @@ namespace MainMenu {
 
 using namespace std;
 using namespace DataLayer;
-//using namespace MainMenu;
 namespace Login {
 
     void Register();
     void LoGin();
     void HaveAccount();
-    void FirstAccount();
-    inline int UserIndex;
 
+    //inline int UserIndex;
+    inline int UserIndex;
     int FindUser(string Name, string Pass) {
         for (int i = 0; i < AddingUsersCounter; i++) {
             if (Name == Users[i].UserName && Pass == Users[i].Password) {
@@ -34,7 +36,8 @@ namespace Login {
         }
         return -1;
     }
-   
+
+
     bool ValidePhone(string Phone) {//اجمد حاجة عملتها حتي الأن بيتشك علي انه 11 رقم وكمان يكونوا مصري فودافون اورنج اتصالات هكذا
 
         if (Phone.length() != 11) { cout << "The number must be 01XXXXXXXX!\n"; return false; }
@@ -45,13 +48,13 @@ namespace Login {
             cout << "Invalid Number! please make sure it's correct." << endl; return false;
         }
 
-        for (int i = 0;i < Phone.length();i++) {
+        for (int i = 0; i < Phone.length(); i++) {
             if (Phone[i] < '0' || Phone[i]> '9') {
                 cout << "Invalid Number! please make sure it's correct." << endl;
                 return false;
             }
         }
-        for (int i = 0;i < AddingUsersCounter;i++) {
+        for (int i = 0; i < AddingUsersCounter; i++) {
             if (Users[i].Phone == Phone) {
 
                 cout << "This number is not available!" << endl;
@@ -64,6 +67,9 @@ namespace Login {
         return true;
     }
 
+
+
+
     void ShowLoading() {
         cout << "\nConnecting to Instapay Servers ";
         for (int i = 0; i < 3; i++) {
@@ -74,122 +80,32 @@ namespace Login {
         system("cls"); // بيمسح الشاشة بعد ما يخلص
     }
 
+
+
     bool StrongPassword(string Pass) {
         bool HasSymbol = false;
-
+        bool HasUpper = false;
         if (Pass.length() < 8) {
             cout << "[!] Password too short! Minimum length is 8 characters.\n";
             return false;
         }
-        for (int i = 0; i < Pass.length();i++) {
+        for (int i = 0; i < Pass.length(); i++) {
             if (Pass[i] == '@' || Pass[i] == '#' || Pass[i] == '$' || Pass[i] == '%' || Pass[i] == '&' || Pass[i] == '!') {
                 HasSymbol = true;
             }
         }
         if (!HasSymbol) { cout << "Password must include symbol! (#,$,@)\n"; return false; }
-        return true;
-    }
-    string ConvertToLower(string S) {
-        for (int i = 0; i < S.length(); i++) {
-            S[i] = tolower(S[i]);
-        }
-        return S;
-    }
-
-    string ConvertToUpper(string S) {
-        for (int i = 0; i < S.length(); i++) {
-            S[i] = toupper(S[i]);
-        }
-        return S;
-	}
-
-
-    bool ValidBank(string BankName)
-    {
-
-
-        string BankNames[] = { "Bank Al Ahly", "CIB" , "Bank Masr" ,"NBE","ADIB","QNB","FAB" };
-        const int CountBank = 7;
-        bool IsValid = true;
-
-        for (int Bank = 0; Bank < CountBank; Bank++)
-        {
-            if (ConvertToLower(BankNames[Bank]) == ConvertToLower(BankName))
-            {
-                BankName = BankNames[Bank];
-                return IsValid;
+        for (int i = 0; i < Pass.length(); i++) {
+            if (isupper(Pass[i])) {
+                HasUpper = true;
+                break;
             }
         }
-        return !IsValid;
-
-
-    }
-
-
-    //يارب نتجوز   
-    bool ValidCardNumber(string CardNumber) {
-        if (CardNumber[0] != '5' && CardNumber[0] != '4') {
-            cout << "Card number must start with 4 or 5!\n"; return false;
-        }
-        if (CardNumber.length() != 16) { cout << "Card number must be xxxx xxxx xxxx xxxx!\n"; return false; }
-        for (int i = 0; i < CardNumber.length(); i++) {
-            if (!isdigit(CardNumber[i])) {
-                cout << "Card number must contain only digits!\n"; return false;
-            }
-        }
-        for (int i = 0; i < AddingUsersCounter; i++) {
-            for (int j = 0; j < Users[i].CountAccounts; j++) {
-                if (CardNumber == Users[i].AccountsList[j].CardNumber) {
-                    cout << "This card number is already in use! Please enter a different one." << endl;
-                    return false;
-                }
-            }
-        }
+        if (!HasUpper) { cout << "Password must include uppercase letter!\n"; return false; }
         return true;
     }
 
 
-
-    bool ValidExpirationDate(string ExpDate) {
-        if (ExpDate.length() != 5 || ExpDate[2] != '/') {
-            return false;
-        }
-        string Month = ExpDate.substr(0, 2);
-        string Year = ExpDate.substr(3, 2);
-        if (!isdigit(Month[0]) || !isdigit(Month[1]) || !isdigit(Year[0]) || !isdigit(Year[1])) {
-            return false;
-        }
-        int MonthInt = stoi(Month);
-        if (MonthInt < 1 || MonthInt > 12) {
-            return false;
-        }
-        int YearInt = stoi(Year);
-        if (YearInt < 26 || YearInt > 40) {
-            return false;
-        }
-        return true;
-    }
-
-    bool ValidCVV(string CVV) {
-        if (CVV.length() != 3) { cout << "CVV must be 3 digits!\n"; return false; }
-        for (int i = 0; i < CVV.length(); i++) {
-            if (!isdigit(CVV[i])) {
-                cout << "CVV must contain only digits!\n"; return false;
-            }
-        }
-        return true;
-    }
-
-
-    bool ValidPIN(string PIN) {
-        if (PIN.length() != 4) { cout << "PIN must be 4 digits!\n"; return false; }
-        for (int i = 0; i < PIN.length(); i++) {
-            if (!isdigit(PIN[i])) {
-                cout << "PIN must contain only digits!\n"; return false;
-            }
-        }
-        return true;
-    }
 
 
     bool ValidEmail(string Email) {
@@ -200,25 +116,25 @@ namespace Login {
         int CounterAt = 0;
         int CounterDot = 0;
         bool DomainFound = false;
-        for (int i = 0;i < Email.length();i++) {
+        for (int i = 0; i < Email.length(); i++) {
 
             if (Email[i] == ' ') {
-                cout << "[!] No spaces allowed!\n";return false;
+                cout << "[!] No spaces allowed!\n"; return false;
             }
-            //if (Email[Email.length()-4] != '.' || Email[Email.length() - 3] != 'c' || Email[Email.length() - 2] != 'o' || Email[Email.length() - 1] != 'm') { cout << "[!] Invalid Email format!\n"; return false; }الكلين كود يبكي في الزاوية
+
 
             if (Email[i] == '@') CounterAt++;
             if (Email[i] == '.') CounterDot++;
         }
 
-        for (int i = 0;i < AddingUsersCounter;i++) {
+        for (int i = 0; i < AddingUsersCounter; i++) {
             if (Email == Users[i].Email) { cout << "This Email is not available!" << endl; return false; }
         }
         if (CounterAt != 1 || CounterDot < 1) {
             cout << "[!] Invalid Email format!\n";
             return false;
         }
-        for (int i = 0; i < 17;i++) {
+        for (int i = 0; i < 17; i++) {
             if (Email.find(AllowedDomains[i]) != string::npos)
             {
                 DomainFound = true;
@@ -228,90 +144,9 @@ namespace Login {
         return true;
     }
 
-    string ConvertToLower(string S) {
-        for (int i = 0; i < S.length(); i++) {
-            S[i] = tolower(S[i]);
-        }
-        return S;
-    }
-
-    string ConvertToUpper(string S) {
-        for (int i = 0; i < S.length(); i++) {
-            S[i] = toupper(S[i]);
-        }
-        return S;
-	}
-
-    void FirstAccount() {
-        cout << "Enter your fist account details\n";
-        cout << "Avilable Banks : Bank Al Ahly , CIB , Bank Masr , NBE , ADIB , QNB , FAB\n";
-        while (true) {
-            while (true) {
-                string CheckBank;
-                cout << "Enter Bank Name : ";
-                getline(cin >> ws, CheckBank);
-                if (ValidBank(CheckBank)) {
-                    Users[UserIndex].AccountsList[0].BankName = CheckBank;
-                    break;
-                }
-                else {
-                    cout << "Invalid Bank Name! Please choose from the available banks.\n";
-                }
-            }
-            while (true) {
-                string CheckCard;
-                cout << "Enter Card Number : ";
-                cin >> CheckCard;
-                if (ValidCardNumber(CheckCard)) {
-                    Users[UserIndex].AccountsList[0].CardNumber = CheckCard;
-                    break;
-                }
-            }
-
-            while (true) {
-                string CheckExp;
-                cout << "Enter Expiration Date (MM/YY) : \n";
-                cin >> CheckExp;
-                if (ValidExpirationDate(CheckExp)) {
-                    Users[UserIndex].AccountsList[0].ExpirationDate = CheckExp;
-                    break;
-                }
-                else { cout << "Invalid Expiration Date! Please enter a valid date in MM/YY format.\n"; }
-            }
-
-            cout << "Enter Holder Name : ";
-            cin.ignore();
-            getline(cin, Users[UserIndex].AccountsList[0].HolderName);
 
 
-            while (true) {
-                string  CheckCVV;
-                cout << "Enter CVV Code : ";
-                cin >> CheckCVV;
-                if (ValidCVV(CheckCVV)) {
-                    Users[UserIndex].AccountsList[0].CVVCode = CheckCVV;
-                    break;
-                }
-            }
-            while (true) {
-                cout << "Create a 4 digit PIN code for your account : ";
-                string CheckPIN;
-                cin >> CheckPIN;
-                if (ValidPIN(CheckPIN)) {
-                    Users[UserIndex].AccountsList[0].PINCode = CheckPIN;
-                    break;
-                }
-            }
 
-        
-            Users[UserIndex].AccountsList[0].Balance =( rand() % 9001)+1000; // Random balance between 1000 and 10000
-			cout << "your initial balance is : " << Users[UserIndex].AccountsList[0].Balance << endl;
-            cout << "\nAccount Registered Successfully!\n";
-            Users[UserIndex].CountAccounts++;
-            
-			break;  //adding break at the end of while loop
-        }
-    }
 
     void Register() {
         if (AddingUsersCounter >= USERS_COUNT) {
@@ -323,12 +158,12 @@ namespace Login {
 
         bool IsTaken;
         string TempName;
-        cin.ignore(1000, '\n');
+        // cin.ignore(1000, '\n');
         do {
             IsTaken = false;
             cout << "Enter your name : ";
-            //cin >> tempName;
-            getline(cin, TempName);
+
+            getline(cin >> ws, TempName);
 
             for (int i = 0; i < AddingUsersCounter; i++) {
                 if (TempName == Users[i].UserName) {
@@ -336,12 +171,12 @@ namespace Login {
                     cout << "This name already taken! enter another name.\n" << endl;
                     break;
                 }
-              }
+            }
         } while (IsTaken);
 
         Users[AddingUsersCounter].UserName = TempName;
 
-        
+
 
 
         string CheckEmail;
@@ -357,7 +192,10 @@ namespace Login {
             }
         } while (!EmailFalse);
 
-         
+
+
+
+
         bool TestPhone = false;
         do {
 
@@ -367,15 +205,15 @@ namespace Login {
 
 
         } while (TestPhone == false);
-        
-		cout << "Enter your address details\n";
-		cout << "-----------------------------\n";
-		cout << "Enter city : ";
-        getline(cin>>ws, Users[AddingUsersCounter].Address.City);
+
+        cout << "Enter your address details\n";
+        cout << "-----------------------------\n";
+        cout << "Enter city : ";
+        getline(cin >> ws, Users[AddingUsersCounter].Address.City);
         cout << "Enter street name : ";
-		getline(cin>>ws, Users[AddingUsersCounter].Address.Street);
+        getline(cin >> ws, Users[AddingUsersCounter].Address.Street);
         cout << "Enter home number : ";
-        getline(cin>>ws, Users[AddingUsersCounter].Address.HomeNumber);
+        getline(cin >> ws, Users[AddingUsersCounter].Address.HomeNumber);
         cout << "-----------------------------\n";
         string Pass, Confirm;
         do {
@@ -394,20 +232,19 @@ namespace Login {
         } while (Pass != Confirm);
 
         Users[AddingUsersCounter].Password = Confirm;
-        
-        Users[AddingUsersCounter].CountAccounts=0;
+
+        Users[AddingUsersCounter].CountAccounts = 0;
         Users[AddingUsersCounter].Id = AddingUsersCounter + 1;
         AddingUsersCounter++;
-		cout << "Sign Up Successful!\n";
-		cout << "Your ID is : " << Users[AddingUsersCounter - 1].Id << endl;
+        cout << "Sign Up Successful!\n";
+        cout << "Your ID is : " << Users[AddingUsersCounter - 1].Id << endl;
         LoGin();
 
-       
+
         cin.ignore();
     }
 
     void LoGin() {
-
         ShowLoading();
         cout << "================================" << "\n";
         cout << "            INSTAPAY            " << "\n";
@@ -426,55 +263,125 @@ namespace Login {
             cout << "\n========= Login Page ========" << endl;
             cout << "Enter your name : ";
 
-          
+
             if (cin.peek() == '\n') cin.ignore();
-            getline(cin, CheckName);
+            getline(cin >> ws, CheckName);
 
             cout << "Enter your password : ";
             cin >> CheckPassword;
-            cin.ignore(1000, '\n');
+            //  cin.ignore(1000, '\n');
 
             UserIndex = FindUser(CheckName, CheckPassword);
 
             if (UserIndex != -1) {
+
                 ShowLoading();
+
                 cout << "Login Successful! Welcome, " << Users[UserIndex].UserName << " Your ID : " << Users[UserIndex].Id << endl;
 
+
                 if (Users[UserIndex].CountAccounts == 0) {
-                    FirstAccount();
+                    //FirstAccount();
+                    AddNewAccount::addNewAccount();
                 }
-                
+
+
+
                 MainMenu::mainWindow();
 
-                return; 
+
+
+                return;
             }
             else {
                 cout << "Invalid!! username or password." << endl;
                 Counter++;
-                
+
             }
 
         } while (Counter < 3);
 
-        
+
         cout << "\n[!] Access Denied. Returning to start..." << endl;
     }
-
     void HaveAccount() {
-        char Choice;
+        string Choice;
         cout << "Do you have an account? (Y/N) : ";
         cin >> Choice;
-        if (Choice == 'Y' || Choice == 'y') {
+        if (Choice.length() == 1 && (Choice == "Y" || Choice == "y")) {
             ShowLoading();
             LoGin();
         }
-        else if (Choice == 'N' || Choice == 'n') {
+        else if (Choice.length() == 1 && (Choice == "N" || Choice == "n")) {
             ShowLoading();
             Register();
         }
         else {
             cout << "Invalid choice! Please enter Y or N.\n";
             HaveAccount();
+        }
+    }
+    bool AreTermsAccepted() {
+        ifstream CheckFile("config.txt");
+        string status;
+        if (CheckFile >> status && status == "Accepted") {
+            return true; // وافق قبل كدة
+        }
+        return false; // أول مرة يفتح
+    }
+
+    void SaveTermsAcceptance() {
+        ofstream WriteFile("config.txt");
+        WriteFile << "Accepted";
+        WriteFile.close();
+    }
+
+
+    // الاستخدام:
+    //SetColor(10); // أخضر للنجاح
+    //cout << "Transaction Successful!";
+    //SetColor(12); // أحمر للأخطاء
+    //cout << "Insufficient Balance!";
+    //SetColor(7);  // رجوع للون الأبيض العادي
+    void Terms() {
+        string Accept;
+        cout << "================ Terms and Conditions ===============\n\n";
+        cout << "1. By using InstaPay, you agree to our terms and conditions.\n";
+        cout << "2. InstaPay is a secure platform for digital payments and transfers.\n";
+        cout << "3. Users are responsible for maintaining the confidentiality of their account information.\n";
+        //cout << "4. InstaPay is not liable for any unauthorized transactions or account breaches." << endl;
+        cout << "4. Users must comply with all applicable laws and regulations when using InstaPay.\n";
+        //cout << "6. InstaPay reserves the right to suspend or terminate accounts that violate our terms." << endl;
+        cout << "5. By creating an account, you confirm that you are at least 18 years old.\n";
+        //cout << "8. InstaPay may collect and use personal data in accordance with our privacy policy." << endl;
+        cout << "6. Users must not use InstaPay for illegal activities or fraudulent purposes.\n";
+        // cout << "10. By using InstaPay, you acknowledge that you have read and understood these terms." << endl;
+        cout << "====================================================\n\n";
+        //cout << " Please type 'I AGREE' to finalize your registration : ";
+
+        int Counter = 0;
+        while (Counter < 3) {
+            cout << "Please type 'I AGREE' to finalize your registration : ";
+            getline(cin >> ws, Accept);
+            if (AddNewAccount::ConvertTOLower(Accept) == "i agree") {
+
+                cout << "Thank you for accepting the terms and conditions" << endl;
+                SaveTermsAcceptance();
+                cout << "Loading";
+                for (int i = 0; i < 3; i++) {
+                    Counter = 0;
+                    Sleep(1000);
+                    cout << ".";
+                }
+                cout << endl;
+                system("cls");
+                HaveAccount();
+
+            }
+            else {
+                //cout << "You must accept the terms and conditions to continue. Please try again." << endl;
+                Counter++;
+            }
         }
     }
 }

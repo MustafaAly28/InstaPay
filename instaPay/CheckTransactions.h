@@ -6,213 +6,151 @@
 #include"Login.h"
 using namespace std;
 using namespace Login;
+
+namespace MainMenu
+{
+    void ShowDateTime();
+    int AccountIndex;
+}
+
+using namespace  MainMenu;
+
 namespace CheckTransaction
 {
-    using namespace std;
-
-    // bool isLoggedIn()
-    // {
-    //     if (UserIndex == -1)
-    //     {
-    //         cout << "\n Error: Please login first!\n";
-    //         return false;
-    //     }
-    //     return true;
-    // }
-
-
-        void PrintTransactionHeader(string title)
-        {
-            cout << "\n==========================================\n";
-            cout << "           " << title << "           ";
-            cout << "\n==========================================\n";
-        }
-
-        string maskPhone(string phone)
-        {
-
-            int visibleStart = 3;
-            int visibleEnd = 2;
-            string masked = "";
-
-            masked += phone.substr(0, visibleStart);
-            for (int i = visibleStart; i < (int)phone.length() - visibleEnd; i++)
-                masked += "*";
-            masked += phone.substr(phone.length() - visibleEnd);
-
-            return masked;
-        }
-
-        void PrintSingleTransaction(StTransactions Transaction, int Number)
-        {
-            cout << "Transaction # " << Number << " #" << endl;
-            cout << "  - From   : " << maskPhone(Transaction.PhoneNumber_From) << endl;
-            cout << "  - To     : " << maskPhone(Transaction.PhoneNumber_To) << endl;
-            cout << "  - Amount : " << Transaction.Amount << " EGP" << endl;
-            cout << "  - Date   : " << Transaction.Date << endl;
-            cout << "------------------------------------------\n";
-        }
-
-        void CheckSentTransactions()
-        {
-
-            StUser CurrentUser = Users[UserIndex];
-            PrintTransactionHeader("SENT TRANSACTIONS");
-
-            if (CurrentUser.TransactionsCountSending == 0)       // Users[CurrentUserIndex].TransactionsCountFrom = currentUser.TransactionsCountFrom
-            {
-                cout << "   No sent transactions found.\n";
-            }
-            else 
-            {
-                for (int i = 0; i < CurrentUser.TransactionsCountSending; i++)
-                    PrintSingleTransaction(CurrentUser.TransactionsSending[i], i + 1);
-            }
-            cout << "==========================================\n";
-        }
-
-        void CheckReceivedTransactions()
-        {
-           
-            StUser CurrentUser = Users[UserIndex];
-            PrintTransactionHeader("RECEIVED TRANSACTIONS");
-
-            if (CurrentUser.TransactionsCountRecieving == 0)        //Users[CurrentUserIndex].TransactionsCountTo = currentUser.TransactionsCountTo
-            {
-                cout << "   No received transactions found.\n";   
-            }
-            else 
-            {
-                for (int i = 0; i < CurrentUser.TransactionsCountRecieving; i++)
-                    PrintSingleTransaction(CurrentUser.TransactionsSending[i], i + 1);
-            }
-            cout << "==========================================\n";
-        }
-
-        void CheckTransactions()
-        {
-            // if (!isLoggedIn())
-            //     return;
-
-            PrintTransactionHeader(" TRANSACTIONS ");
-
-            CheckSentTransactions();
-
-            CheckReceivedTransactions();
-
-            StUser CurrentUser = Users[UserIndex];
-
-            // bool HasAny = (CurrentUser.TransactionsCountFrom > 0 || CurrentUser.TransactionsCountTo > 0);
-
-            // if (!HasAny)
-            // {
-            //     cout << "   No Transactions found.\n";
-            // }
-           
-            // cout << "==========================================\n";
-        }
-
-    //void PrintTransactionHeader(string title)
-    //{
-    //    cout << "\n==========================================\n";
-    //    cout << "           " << title << "           ";
-    //    cout << "\n==========================================\n";
-
-    //}
-
-    string maskPhone(string phone)
+    /*bool isLoggedIn()
     {
+        if (CurrentUserIndex == -1)
+        {
+            cout << "\n Error: Please login first!\n";
+            return false;
+        }
+        return true;
+    }*/
 
-        int visibleStart = 3;
-        int visibleEnd = 2;
-        string masked = "";
-
-        masked += phone.substr(0, visibleStart);
-        for (int i = visibleStart; i < (int)phone.length() - visibleEnd; i++)
-            masked += "*";
-        masked += phone.substr(phone.length() - visibleEnd);
-
-        return masked;
+    void PrintTransactionHeader(string title)
+    {
+        cout << "\n==========================================\n";
+        cout << "           " << title << "           ";
+        cout << "\n==========================================\n";
     }
+
+    /* string maskPhone(string phone)
+     {
+
+         int visibleStart = 3;
+         int visibleEnd = 2;
+         string masked = "";
+
+         masked += phone.substr(0, visibleStart);
+         for (int i = visibleStart; i < (int)phone.length() - visibleEnd; i++)
+             masked += "*";
+         masked += phone.substr(phone.length() - visibleEnd);
+
+         return masked;
+     }*/
 
     void PrintSingleTransaction(StTransactions Transaction, int Number)
     {
-        cout << "Transaction # " << Number + 1<< " #" << endl;
-        cout << "  - From   : " << maskPhone(Transaction.PhoneNumber_From) << endl;
-        cout << "  - To     : " << maskPhone(Transaction.PhoneNumber_To) << endl;
+        cout << "Transaction # " << Number << " #" << endl;
+        cout << "  - From   : " << Transaction.PhoneNumber_From << endl;
+        cout << "  - To     : " << Transaction.PhoneNumber_To << endl;
         cout << "  - Amount : " << Transaction.Amount << " EGP" << endl;
         cout << "  - Date   : " << Transaction.Date << endl;
         cout << "------------------------------------------\n";
     }
+    //  عرض جميع عمليات الإيداع التي تمت
+    //void CheckDeposits()
+    //{
+    //    StAccount CurrentAccount = Users[UserIndex].AccountsList[AccountIndex];
+    //    PrintTransactionHeader("DEPOSITS HISTORY");
 
-    void CheckSentTransactions()
-    {
+    //    // التحقق من وجود عمليات إيداع
+    //    if (CurrentAccount.DepositsCount == 0)
+    //    {
+    //        cout << "   No deposits found.\n";
+    //    }
+    //    else
+    //    {
+    //        for (int i = 0; i < CurrentAccount.DepositsCount; i++)
+    //        {
 
-        StUser CurrentUser = Users[UserIndex];
-        PrintTransactionHeader("SENT TRANSACTIONS");
+    //            PrintSingleTransaction(CurrentAccount.Deposits[i], i + 1);
+    //        }
+    //    }
+    //    cout << "==========================================\n";
+    //}
 
-        if (CurrentUser.TransactionsCountSending == 0)       // Users[CurrentUserIndex].TransactionsCountFrom = currentUser.TransactionsCountFrom
-        {
-            cout << "   No sent transactions found.\n";
-        }
-        else
-        {
-            for (int i = 0; i < CurrentUser.TransactionsCountSending; i++)
-                PrintSingleTransaction(CurrentUser.TransactionsSending[i], i + 1);
-        }
-        cout << "==========================================\n";
-    }
+    ////  عرض جميع عمليات السحب التي تمت
+    //void CheckWithdrawals()
+    //{
+    //    StAccount CurrentAccount = Users[UserIndex].AccountsList[AccountIndex];
+    //    PrintTransactionHeader("WITHDRAWALS HISTORY");
 
-    void CheckReceivedTransactions()
-    {
+    //    // التحقق من وجود عمليات سحب 
+    //    if (CurrentAccount.WithdrawalsCount == 0)
+    //    {
+    //        cout << "  No withdrawals found.\n";
+    //    }
 
-        StUser CurrentUser = Users[UserIndex];
-        PrintTransactionHeader("RECEIVED TRANSACTIONS");
+    //    else
+    //    {
+    //        for (int i = 0; i < CurrentAccount.WithdrawalsCount; i++)
+    //        {
 
-        if (CurrentUser.TransactionsCountRecieving == 0)        //Users[CurrentUserIndex].TransactionsCountTo = currentUser.TransactionsCountTo
-        {
-            cout << "   No received transactions found.\n";
-        }
-        else
-        {
-            for (int i = 0; i < CurrentUser.TransactionsCountRecieving; i++)
-                PrintSingleTransaction(CurrentUser.TransactionsRecieving[i], i + 1);
-        }
-        cout << "==========================================\n";
-    }
-    void ShowDepositTransaction() {
-        // هتعرض فيها عمليات الايداع
+    //            PrintSingleTransaction(CurrentAccount.Withdrawals[i], i + 1);
+    //        }
+    //    }
+    //    cout << "==========================================\n";
+    //}
 
-    }
+    //void CheckSentTransactions()
+    //{
 
+    //    StAccount CurrentAccount = Users[UserIndex].AccountsList[AccountIndex];
+    //    PrintTransactionHeader("SENT TRANSACTIONS");
 
-    void ShowWithDrawTransaction() {
-        // هتعرض فيها عمليات الايداع
+    //    if (CurrentAccount.TransactionsCountFrom == 0)       // Users[CurrentUserIndex].TransactionsCountFrom = currentUser.TransactionsCountFrom
+    //    {
+    //        cout << "   No sent transactions found.\n";
+    //    }
+    //    else
+    //    {
+    //        for (int i = 0; i < CurrentAccount.TransactionsCountFrom; i++)
+    //            PrintSingleTransaction(CurrentAccount.TransactionsFrom[i], i + 1);
+    //    }
+    //    cout << "==========================================\n";
+    //}
 
-    }
+    //void CheckReceivedTransactions()
+    //{
+
+    //    StAccount CurrentAccount = Users[UserIndex].AccountsList[AccountIndex];
+    //    PrintTransactionHeader("RECEIVED TRANSACTIONS");
+
+    //    if (CurrentAccount.TransactionsCountTo == 0)        //Users[CurrentUserIndex].TransactionsCountTo = currentUser.TransactionsCountTo
+    //    {
+    //        cout << "   No received transactions found.\n";
+    //    }
+    //    else
+    //    {
+    //        for (int i = 0; i < CurrentAccount.TransactionsCountTo; i++)
+    //            PrintSingleTransaction(CurrentAccount.TransactionsTo[i], i + 1);
+    //    }
+    //    cout << "==========================================\n";
+    //}
 
     void CheckTransactions()
     {
-        // if (!isLoggedIn())
-        //     return;
 
         PrintTransactionHeader(" TRANSACTIONS ");
 
-        CheckSentTransactions();
+        //CheckSentTransactions();
 
-        CheckReceivedTransactions();
+        //CheckReceivedTransactions();
 
-        StUser CurrentUser = Users[UserIndex];
+        //CheckDeposits();
 
-        // bool HasAny = (CurrentUser.TransactionsCountFrom > 0 || CurrentUser.TransactionsCountTo > 0);
+        //CheckWithdrawals();
 
-        // if (!HasAny)
-        // {
-        //     cout << "   No Transactions found.\n";
-        // }
-
-        // cout << "==========================================\n";
     }
-
 }
-

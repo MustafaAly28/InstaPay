@@ -137,7 +137,7 @@
 //             string CheckBank;
 //             cout<<"Avilable Banks : Bank Al Ahly, CIB, Bank Masr, NBE, ADIB, QNB, FAB\n";
 //             cout << " Enter BankName : ";
-            
+
 //             getline(cin >> ws, CheckBank);
 
 //             if (ValidBank(CheckBank)) {
@@ -374,9 +374,9 @@ namespace AddNewAccount
         //  Bank Name Validation
         while (true) {
             string CheckBank;
-            cout<<"Avilable Banks : Bank Al Ahly, CIB, Bank Masr, NBE, ADIB, QNB, FAB\n";
+            cout << "Avilable Banks : Bank Al Ahly, CIB, Bank Masr, NBE, ADIB, QNB, FAB\n";
             cout << " Enter BankName : ";
-            
+
             getline(cin >> ws, CheckBank);
 
             if (ValidBank(CheckBank)) {
@@ -443,7 +443,7 @@ namespace AddNewAccount
 
         //  Balance Generation
         NewAccount.Balance = (rand() % 9001) + 1000;
-        cout << "Your initial balance is: " << NewAccount.Balance << endl;
+        cout << "Your Initial Balance Is: " << NewAccount.Balance << endl;
 
         return NewAccount;
     }
@@ -452,21 +452,23 @@ namespace AddNewAccount
     {
         if (Users[UserIndex].CountAccounts >= 3)
         {
-            cout << "\nError: You reached maximum limit of Accounts.\n";
+            cout << "\t\t\t_____________________________________________________________________\n";
+            cout << "\n\t\t\t\t\tError: You Reached Maximum Limit Of Accounts.\n";
+            cout << "\t\t\t_____________________________________________________________________\n\n\n";
+
             return;
         }
 
         StAccount NewAccount = ReadNewAccountData();
 
-        int CurrentAccPos;
+        int CurrentAccountPosition = 0;
 
-        CurrentAccPos = Users[UserIndex].CountAccounts;
+        CurrentAccountPosition = Users[UserIndex].CountAccounts;
 
-        Users[UserIndex].AccountsList[CurrentAccPos] = NewAccount;
+        Users[UserIndex].AccountsList[CurrentAccountPosition] = NewAccount;
 
         Users[UserIndex].CountAccounts++;
 
-
-        cout << "\n Account added successfully .\n";
+        cout << "\n Account Added Successfully .\n";
     }
 }

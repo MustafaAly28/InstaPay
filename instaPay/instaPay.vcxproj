@@ -140,6 +140,7 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Services.h" />
     <ClInclude Include="TransferCheck.h" />
+    <ClInclude Include="User Profile.h" />
     <ClInclude Include="Validation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

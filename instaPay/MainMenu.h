@@ -8,15 +8,17 @@
 #include <cstdlib>
 #include <ctime>
 #include <cctype>
+#include"UserProfile.h"
 #include"AddNewAccount.h"
 #include "TransferCheck.h"
-#include"CheckTransactions.h"
+//#include"CheckTransactions.h"
 #define _CRT_SECURE_NO_WARNINGS
-using namespace CheckTransaction;
+//using namespace CheckTransaction;
 using namespace Login;
 using namespace std;
 using namespace AddNewAccount;
 using namespace TransferBalanceAndCheck;
+using namespace UserProfile;
 
 namespace MainMenu
 {
@@ -25,7 +27,7 @@ namespace MainMenu
     bool Exist = false;
 
     void AskUser(char Answer) {
-    
+
         while (Answer != 'Y' && Answer != 'y' && Answer != 'N' && Answer != 'n')
         {
             cout << "invalid Answer \n";
@@ -35,7 +37,7 @@ namespace MainMenu
         }
         if (Answer == 'y' || Answer == 'Y')
         {
-            
+
             ShowLoading();
             system("cls");
         }
@@ -45,126 +47,125 @@ namespace MainMenu
     }
     void mainWindow() {
 
-             bool ValidChoice;
-            char Answer;
-            int Choice;
-            while (true) {
-                
-                system("Color 0E"); // Color The Font
+        bool ValidChoice;
+        char Answer;
+        int Choice;
+        while (true) {
 
-                cout << "\n========================================";
-                cout << "\n            INSTAPAY EGYPT             ";
-                cout << "\n========================================";
-                cout << "\n  1. Check Balance      2. Add Account";
-                cout << "\n  3. Transfer           4. User Info";
-                cout << "\n  5. Transactions       6. Donation";
-                cout << "\n  7. Deposit            8. Withdraw";
-                cout << "\n  9. Logout             0.Exit    ";
-                cout << "\n========================================\n";
+            system("Color 0E"); // Color The Font
 
-
+            cout << "\n\t\t\t\t========================================";
+            cout << "\n\t\t\t\t            INSTAPAY EGYPT             ";
+            cout << "\n\t\t\t\t========================================";
+            cout << "\n\t\t\t\t  1. Check Balance      2. Add Account";
+            cout << "\n\t\t\t\t  3. Transfer           4. User Info";
+            cout << "\n\t\t\t\t  5. Transactions       6. Donation";
+            cout << "\n\t\t\t\t  7. Deposit            8. Withdraw";
+            cout << "\n\t\t\t\t  9. Logout             0.Exit    ";
+            cout << "\n\t\t\t\t========================================\n";
 
 
-                do
+
+
+            do
+            {
+
+                cout << "\t\t\t\tEnter Your Choice from (0-9) : ";
+                cin >> Choice;
+
+
+                if (Choice >= 0 && Choice <= 9)
                 {
 
-                    cout << "Enter Your Choice from (0-9) : ";
-                    cin >> Choice;
+                    ValidChoice = true;
+                }
+                else
+                {
+                    cout << "Invalid Choice ! \n";
+                    ValidChoice = false;
+                }
 
+            } while (ValidChoice == false);
+            ShowLoading();
+            system("cls");
 
-                    if (Choice >= 0 && Choice <= 9)
-                    {
+            switch (Choice) {
+            case 1:
+                checkBalance();
+                cout << "To Main Menu Y/y To Exist N/n ";
+                cout << "Answer : ";
+                cin >> Answer;
+                AskUser(Answer);
+                break;
+            case 2:
+                addNewAccount();
+                cout << "For Main Menu Y/y To Exist N/n ";
+                cout << "Answer : ";
+                cin >> Answer;
+                AskUser(Answer);
 
-                        ValidChoice = true;
-                    }
-                    else
-                    {
-                        cout << "Invalid Choice ! \n";
-                        ValidChoice = false;
-                    }
+                break;
+            case 3:
 
-                } while (ValidChoice == false);
+                transfer();
+                cout << "For Main Menu Y/y To Exist N/n ";
+                cout << "Answer : ";
+                cin >> Answer;
+                AskUser(Answer);
+
+                break;
+
+            case 4:
+                ShowUserBasicProfile(UserIndex);
+                break;
+
+            case 5:
+
+                //CheckTransactions();
+                cout << "For Main Menu Y/y To Exist N/n ";
+                cout << "Answer : ";
+                cin >> Answer;
+                AskUser(Answer);
+
+                break;
+            case 6:
+
+                //Donate();
+
+                break;
+            case 7:
+                Deposit();
+                cout << "For Main Menu Y/y To Exist N/n ";
+                cout << "Answer : ";
+                cin >> Answer;
+                AskUser(Answer);
+
+                break;
+            case 8:
+                WithDraw();
+                cout << "For Main Menu Y/y To Exist N/n ";
+                cout << "Answer : ";
+                cin >> Answer;
+                AskUser(Answer);
+                break;
+
+            case 9:
                 ShowLoading();
                 system("cls");
+                LoGin();
+                break;
 
-                switch (Choice) {
-                case 1:
-                    checkBalance();
-                    cout << "To Main Menu Y/y To Exist N/n ";
-                    cout << "Answer : ";
-                    cin >> Answer;
-                    AskUser(Answer);
-                    break;
-                case 2:
-                    addNewAccount();
-                    cout << "For Main Menu Y/y To Exist N/n ";
-                    cout << "Answer : ";
-                    cin >> Answer;
-                    AskUser(Answer);
+            case 0:
+                cout << "Thank You";
+                Exist = true;
 
-                    break;
-                case 3:
-
-                    transfer();
-                    cout << "For Main Menu Y/y To Exist N/n ";
-                    cout << "Answer : ";
-                    cin >> Answer;
-                    AskUser(Answer);
-
-                    break;
-                case 4:
-
-                    //UserInfo();
-
-
-                    break;
-                case 5:
-
-                    CheckTransactions();
-                    cout << "For Main Menu Y/y To Exist N/n ";
-                    cout << "Answer : ";
-                    cin >> Answer;
-                    AskUser(Answer);
-
-                    break;
-                case 6:
-
-                    //Donate();
-
-                    break;
-                case 7:
-                    Deposit();
-                    cout << "For Main Menu Y/y To Exist N/n ";
-                    cout << "Answer : ";
-                    cin >> Answer;
-                    AskUser(Answer);
-
-                    break;
-                case 8:
-                    WithDraw();
-                    cout << "For Main Menu Y/y To Exist N/n ";
-                    cout << "Answer : ";
-                    cin >> Answer;
-                    AskUser(Answer);
-                    break;
-
-                case 9:
-                    ShowLoading();
-                    system("cls");
-                    LoGin();
-                    break;
-
-                case 0:
-                    cout << "Thank You";
-                    Exist = true;
-
-                }
-                if (Exist) {
-                    ShowLoading();
-                    system("cls");
-                    break;
-                }
             }
+            if (Exist) {
+                ShowLoading();
+                system("cls");
+                break;
+            }
+        }
 
 
     }
@@ -172,7 +173,7 @@ namespace MainMenu
         time_t now = time(0);
         cout << "Date & Time: " << ctime(&now);
     }           //Show Date And Time
-   
+
     double GetValidAmount() {              // تاخذ مبلغ موجب واكبر من الصفر
         double Amount;
         while (true)
@@ -193,17 +194,17 @@ namespace MainMenu
     bool CheckPIN(string PIN, int AccountIndex) {           // تشيك الرمز موجود في السيستم 
 
 
-            if (Users[UserIndex].AccountsList[AccountIndex].PINCode == PIN)
-            {
-               
-               
-                return true;
+        if (Users[UserIndex].AccountsList[AccountIndex].PINCode == PIN)
+        {
 
 
-            }
+            return true;
 
-            return false;
-       
+
+        }
+
+        return false;
+
     }
 
 
@@ -211,7 +212,7 @@ namespace MainMenu
     {
 
 
-        for (int Index = 0; Index < 3; Index++) 
+        for (int Index = 0; Index < 3; Index++)
         {
             if (Users[UserIndex].AccountsList[Index].CardNumber == CardNumber)
             {
@@ -224,30 +225,30 @@ namespace MainMenu
         return false;
     }
 
-    
+
     bool CheckBalance(double Amount, int AccountIndex) {        // تشيك لو المبلغ الكلي كافي للسحب
-       
+
         double TotalAmount = Amount + Amount * 0.01;
-      
-
-          if (TotalAmount <= Users[UserIndex].AccountsList[AccountIndex].Balance)//taxex+amount
-          {
 
 
-              return true;
+        if (TotalAmount <= Users[UserIndex].AccountsList[AccountIndex].Balance)//taxex+amount
+        {
 
-          }
-          return false;
-      
+
+            return true;
+
+        }
+        return false;
+
     }
 
 
     void Deposit() {
         int CounterAttempts = 0;
-        double Amount ;
+        double Amount;
         string CardNumber;
         int AccountIndex;
-   
+
         string PIN;
 
 
@@ -275,9 +276,9 @@ namespace MainMenu
             }
         }
 
-       Amount =GetValidAmount(); // ياخد مبلغ موجب واكبر من صفر
-       
-       cout << "You only have 3 attempts \n";
+        Amount = GetValidAmount(); // ياخد مبلغ موجب واكبر من صفر
+
+        cout << "You only have 3 attempts \n";
 
         do {
             cout << "Enter a 4 digit PIN code for your account: ";
@@ -285,7 +286,7 @@ namespace MainMenu
             if (CheckPIN(PIN, AccountIndex)) //لو الرمز موجود في الستسم    
                 break;
             else
-            cout << "invalid PIN !! \n";
+                cout << "invalid PIN !! \n";
             CounterAttempts++;
             if (CounterAttempts == 3) {
                 CounterAttempts = 0;
@@ -310,12 +311,12 @@ namespace MainMenu
         cout << "====================================\n";
 
     }
-    void WithDraw() 
+    void WithDraw()
     {
         int  CounterAttempts = 0;
-        double Amount ;
+        double Amount;
         string CardNumber;
-        int AccountIndex ;
+        int AccountIndex;
         string PIN;
 
         while (true)
@@ -323,7 +324,7 @@ namespace MainMenu
 
             cout << "Enter Card Number (16 digits starting with 4 or 5): ";
             cin >> CardNumber; // ياخد  Card Number
-            if (CheckAccountExist(CardNumber) ) // تشيك لو موجود في السيستم 
+            if (CheckAccountExist(CardNumber)) // تشيك لو موجود في السيستم 
                 break;
             else
                 cout << "Invalid Card Number Or Does Not Exist \n";
@@ -343,7 +344,7 @@ namespace MainMenu
 
         while (true)
         {
-            Amount =GetValidAmount(); // ياخد مبلغ موجب واكبر من صفر
+            Amount = GetValidAmount(); // ياخد مبلغ موجب واكبر من صفر
             if (CheckBalance(Amount, AccountIndex)) // (لو المبلغ الكلي  كافي( مبلغ + ضرائب
                 break;
             cout << "Insufficient balance !! \n";
@@ -352,26 +353,26 @@ namespace MainMenu
         cout << "You only have 3 attempts \n";
 
 
-        do {       
-        cout << "Enter a 4 digit PIN code for your account: ";
-        cin >> PIN;
-        if (CheckPIN(PIN, AccountIndex)) //لو الرمز موجود في الستسم    
-            break;
-        cout << "invalid PIN !! \n";
-        CounterAttempts++;
+        do {
+            cout << "Enter a 4 digit PIN code for your account: ";
+            cin >> PIN;
+            if (CheckPIN(PIN, AccountIndex)) //لو الرمز موجود في الستسم    
+                break;
+            cout << "invalid PIN !! \n";
+            CounterAttempts++;
 
-        if (CounterAttempts == 3) {
-            CounterAttempts = 0;
-            ShowLoading();
-            system("cls");
-            mainWindow();
-        }
+            if (CounterAttempts == 3) {
+                CounterAttempts = 0;
+                ShowLoading();
+                system("cls");
+                mainWindow();
+            }
 
-            }while (true);
+        } while (true);
 
 
         Users[UserIndex].AccountsList[AccountIndex].Balance -= TotalAmount;
-        
+
         cout << "\n====================================\n";
         cout << "       TRANSACTION SUCCESSFUL       \n";
         cout << "====================================\n";

@@ -15,7 +15,7 @@ using namespace std;
 	(UserName#Id#Password#Phone#Email)
 
 	File (Transactions  Data) => Seprator Or Delimeter Is %#%
-	(From(PhoneNumber)%#%To(PhoneNumber)%#%Date%#%Amount)
+	(BankNameOfSender%#%BankNameOfReceiver%#%From(PhoneNumber)%#%To(PhoneNumber)%#%Date%#%Amount)
 */
 
 const string SepratorPersonalData = "#";

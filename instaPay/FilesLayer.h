@@ -76,7 +76,7 @@ namespace File
 		return Address;
 	}
 
-	StAccount GetAccountFromLine(string LineOfDataAccount, string &ConnectorPhoneNumber)
+	StAccount GetAccountFromLine(string LineOfDataAccount, string& ConnectorPhoneNumber)
 	{
 		string AccountInfo[8] = {};
 		StAccount Account;
@@ -97,14 +97,16 @@ namespace File
 	StTransactions GetDataTransactionFromLine(string LineDataTransaction)
 	{
 		StTransactions TransactionsHistory;
-		string TransactionsParts[4];
+		string TransactionsParts[6];
 
 		SplitTextToData(LineDataTransaction, TransactionsParts, SepratorTransactionData);
 
-		TransactionsHistory.PhoneNumber_From = TransactionsParts[0];
-		TransactionsHistory.PhoneNumber_To = TransactionsParts[1];
-		TransactionsHistory.Date = TransactionsParts[2];
-		TransactionsHistory.Amount = stoi(TransactionsParts[3]);
+		TransactionsHistory.BankNameForSender = TransactionsParts[0];
+		TransactionsHistory.BankNameForReceiver = TransactionsParts[1];
+		TransactionsHistory.PhoneNumber_From = TransactionsParts[2];
+		TransactionsHistory.PhoneNumber_To = TransactionsParts[3];
+		TransactionsHistory.Date = TransactionsParts[4];
+		TransactionsHistory.Amount = stod(TransactionsParts[5]);
 
 		return TransactionsHistory;
 	}
@@ -131,7 +133,7 @@ namespace File
 		return (User.Address.Street + "/#/" + User.Address.City + "/#/" + User.Address.HomeNumber);
 	}
 
-	string GetAccountLine(const StAccount &Account, const string &PhoneNumber)
+	string GetAccountLine(const StAccount& Account, const string& PhoneNumber)
 	{
 		string Line = "";
 

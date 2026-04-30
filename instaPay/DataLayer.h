@@ -36,6 +36,8 @@ namespace DataLayer
 
 	struct StTransactions
 	{
+		string BankNameForSender;
+		string BankNameForReceiver;
 		string PhoneNumber_From;
 		string PhoneNumber_To;
 		string Date;
