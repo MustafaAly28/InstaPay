@@ -63,8 +63,11 @@ namespace Validation
 
 		for (int UserPosition = 0; UserPosition < AddingUsersCounter; UserPosition++)
 		{
-			if (Users[UserPosition].Account.CardNumber == CardNumber)
-				return IsExist;
+			for (int AccountPosition = 0; AccountPosition < Users[UserPosition].CountAccounts; AccountPosition++)
+			{
+				if (Users[UserPosition].AccountsList[AccountPosition].CardNumber == CardNumber)
+					return IsExist;
+			}
 		}
 		return !IsExist;
 	}
@@ -90,8 +93,11 @@ namespace Validation
 	{
 		for (int UserPosition = 0; UserPosition < CountUsers; UserPosition++)
 		{
-			if (CvvCode == Users[UserPosition].Account.CVVCode)
-				return true;
+			for (int AccountPosition = 0; AccountPosition < Users[UserPosition].CountAccounts; AccountPosition++)
+			{
+				if (Users[UserPosition].AccountsList[AccountPosition].CVVCode == CvvCode)
+					return true;
+			}
 		}
 		return false;
 	}

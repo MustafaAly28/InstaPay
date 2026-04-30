@@ -7,7 +7,7 @@
 #include "DataLayer.h"
 #include <cstdlib>
 #include <ctime>
-#include "AddNewAccount"
+#include "AddNewAccount.h"
 //#include "MainMenu.h"
 
 namespace MainMenu {
@@ -34,7 +34,6 @@ namespace Login {
         return -1;
     }
    
-
     bool ValidePhone(string Phone) {//اجمد حاجة عملتها حتي الأن بيتشك علي انه 11 رقم وكمان يكونوا مصري فودافون اورنج اتصالات هكذا
 
         if (Phone.length() != 11) { cout << "The number must be 01XXXXXXXX!\n"; return false; }
@@ -64,9 +63,6 @@ namespace Login {
         return true;
     }
 
-
-
-
     void ShowLoading() {
         cout << "\nConnecting to Instapay Servers ";
         for (int i = 0; i < 3; i++) {
@@ -76,8 +72,6 @@ namespace Login {
         cout << "\n";
         system("cls"); // بيمسح الشاشة بعد ما يخلص
     }
-
-
 
     bool StrongPassword(string Pass) {
         bool HasSymbol = false;
@@ -94,9 +88,6 @@ namespace Login {
         if (!HasSymbol) { cout << "Password must include symbol! (#,$,@)\n"; return false; }
         return true;
     }
-
-
-
 
     bool ValidEmail(string Email) {
         string AllowedDomains[] = { "@gmail.com", "@yahoo.com", "@outlook.com", "@hotmail.com",//17 Domains
@@ -134,7 +125,6 @@ namespace Login {
         return true;
     }
 
-
     string ConvertToLower(string S) {
         for (int i = 0; i < S.length(); i++) {
             S[i] = tolower(S[i]);
@@ -148,9 +138,6 @@ namespace Login {
         }
         return S;
 	}
-
-
-
 
     void FirstAccount() {
         cout << "Enter your fist account details\n";
@@ -222,16 +209,6 @@ namespace Login {
 			break;  //adding break at the end of while loop
         }
     }
-
-
-
-
-
-
-
-
-
-
 
     void Register() {
         if (AddingUsersCounter >= USERS_COUNT) {
@@ -330,6 +307,7 @@ namespace Login {
     }
 
     void LoGin() {
+
         ShowLoading();
         cout << "================================" << "\n";
         cout << "            INSTAPAY            " << "\n";
@@ -362,16 +340,11 @@ namespace Login {
                 ShowLoading();
                 cout << "Login Successful! Welcome, " << Users[UserIndex].UserName << " Your ID : " << Users[UserIndex].Id << endl;
 
-               
                 if (Users[UserIndex].CountAccounts == 0) {
                     FirstAccount();
                 }
                 
-               
-                    
-                MainMenu::mainWindow(); 
-                
-                
+                MainMenu::mainWindow();
 
                 return; 
             }
@@ -386,6 +359,7 @@ namespace Login {
         
         cout << "\n[!] Access Denied. Returning to start..." << endl;
     }
+
     void HaveAccount() {
         char Choice;
         cout << "Do you have an account? (Y/N) : ";

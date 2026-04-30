@@ -1,10 +1,10 @@
-12 Tahrir St/#/Cairo/#/1545
-1545 Abbas El Akkad St/#/Nasr City/#/1027
-1027 El Geish Rd/#/Alexandria/#/2290
-2290 Ramses St/#/Cairo/#/3013
-3013 Salah Salem St/#/Giza/#/918
-918 Mustafa Kamel St/#/Alexandria/#/4455
-4455 El Horreya Rd/#/Alexandria/#/7810
-7810 Sudan St/#/Dokki/#/627
-627 Faisal St/#/Giza/#/21066
-21066 Makram Ebeid St/#/Nasr City/#/88
+TahrirStreet/#/Cairo/#/12
+NasrRoad/#/Giza/#/45
+ElHaramStreet/#/Giza/#/102
+AlexCorniche/#/Alexandria/#/7
+FaisalStreet/#/Giza/#/88
+SalahSalem/#/Cairo/#/23
+PortSaidStreet/#/Mansoura/#/56
+UniversityRoad/#/Zagazig/#/14
+SeaViewStreet/#/Hurghada/#/3
+ElMahattaStreet/#/Tanta/#/67

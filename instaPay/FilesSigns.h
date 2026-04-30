@@ -8,7 +8,8 @@ using namespace std;
 	(Street/#/City/#/HomeNumber)
 
 	File (Account  Data) => Seprator Or Delimeter Is $
-	(CardNumber$PINCode$HolderName$BankName$CVVCode$ExpirationDate$Balance)
+	(PhoneNumber$CardNumber$PINCode$HolderName$BankName$CVVCode$ExpirationDate$Balance)
+	/* The Phone Number Is Connector With All Accounts For One User *\
 
 	File (Personal  Data) => Seprator Or Delimeter Is #
 	(UserName#Id#Password#Phone#Email)

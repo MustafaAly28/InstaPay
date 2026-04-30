@@ -115,31 +115,31 @@ namespace TransferBalanceAndCheck
 
         // (FROM) save transaction
 
-        int tFrom = Users[UserIndex].TransactionsCountFrom;
+        int tFrom = Users[UserIndex].TransactionsCountSending;
 
-        Users[UserIndex].TransactionsFrom[tFrom].PhoneNumber_From =
+        Users[UserIndex].TransactionsSending[tFrom].PhoneNumber_From =
             Users[UserIndex].Phone;
 
-        Users[UserIndex].TransactionsFrom[tFrom].PhoneNumber_To =
+        Users[UserIndex].TransactionsSending[tFrom].PhoneNumber_To =
             Users[receiverIndex].Phone;
 
-        Users[UserIndex].TransactionsFrom[tFrom].Amount = amount;
+        Users[UserIndex].TransactionsSending[tFrom].Amount = amount;
 
-        Users[UserIndex].TransactionsCountFrom++;
+        Users[UserIndex].TransactionsCountSending++;
 
         // (TO) save transaction
 
-        int tTo = Users[receiverIndex].TransactionsCountTo;
+        int tTo = Users[receiverIndex].TransactionsCountRecieving;
 
-        Users[receiverIndex].TransactionsTo[tTo].PhoneNumber_From =
+        Users[receiverIndex].TransactionsRecieving[tTo].PhoneNumber_From =
             Users[UserIndex].Phone;
 
-        Users[receiverIndex].TransactionsTo[tTo].PhoneNumber_To =
+        Users[receiverIndex].TransactionsRecieving[tTo].PhoneNumber_To =
             Users[receiverIndex].Phone;
 
-        Users[receiverIndex].TransactionsTo[tTo].Amount = amount;
+        Users[receiverIndex].TransactionsRecieving[tTo].Amount = amount;
 
-        Users[receiverIndex].TransactionsCountTo++;
+        Users[receiverIndex].TransactionsCountRecieving++;
 
         AddingTransactionsCounter++;
 

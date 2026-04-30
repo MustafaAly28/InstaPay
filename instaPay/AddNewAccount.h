@@ -8,6 +8,7 @@
 
 using namespace std;
 using namespace Login;
+
 namespace AddNewAccount
 {
     void PrintAddNewAccountHider()
@@ -47,8 +48,6 @@ namespace AddNewAccount
 
     }
 
-
-
     bool ValidCardNumber(string CardNumber)
     {
         if (CardNumber[0] != '5' && CardNumber[0] != '4')
@@ -79,8 +78,6 @@ namespace AddNewAccount
         }
         return true;
     }
-
-
 
     bool ValidExpirationDate(string ExpDate)
     {
@@ -114,7 +111,6 @@ namespace AddNewAccount
         return true;
     }
 
-
     bool ValidPIN(string PIN) {
         if (PIN.length() != 4) { cout << "PIN must be 4 digits!\n"; return false; }
         for (int i = 0; i < PIN.length(); i++) {
@@ -125,14 +121,12 @@ namespace AddNewAccount
         return true;
     }
 
-
-
     StAccount ReadNewAccountData()
     {
         StAccount NewAccount;
         string TempInput;
 
-        ShowLoading();
+        Login::ShowLoading();
 
         PrintAddNewAccountHider();
 

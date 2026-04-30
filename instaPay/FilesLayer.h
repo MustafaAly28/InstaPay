@@ -19,7 +19,7 @@ namespace Date
 	string CleanDate(const string& Text)
 	{
 		string Line = "";
-		for (size_t i = 0; i < Text.length(); i++)
+		for (int i = 0; i < Text.length(); i++)
 			if (Text[i] != '\n')
 				Line += Text[i];
 
@@ -76,20 +76,20 @@ namespace File
 		return Address;
 	}
 
-	StAccount GetAccountFromLine(string LineOfDataAccount)
+	StAccount GetAccountFromLine(string LineOfDataAccount, string& ConnectorPhoneNumber)
 	{
-		string AccountInfo[7] = {};
+		string AccountInfo[8] = {};
 		StAccount Account;
 
 		SplitTextToData(LineOfDataAccount, AccountInfo, SepratorAccountData);
-
-		Account.CardNumber = AccountInfo[0];
-		Account.PINCode = AccountInfo[1];
-		Account.HolderName = AccountInfo[2];
-		Account.BankName = AccountInfo[3];
-		Account.CVVCode = AccountInfo[4];
-		Account.ExpirationDate = AccountInfo[5];
-		Account.Balance = stod(AccountInfo[6]);
+		ConnectorPhoneNumber = AccountInfo[0];
+		Account.CardNumber = AccountInfo[1];
+		Account.PINCode = AccountInfo[2];
+		Account.HolderName = AccountInfo[3];
+		Account.BankName = AccountInfo[4];
+		Account.CVVCode = AccountInfo[5];
+		Account.ExpirationDate = AccountInfo[6];
+		Account.Balance = stod(AccountInfo[7]);
 
 		return Account;
 	}
@@ -113,6 +113,7 @@ namespace File
 	{
 		string PersonalInfo[5] = {};
 		SplitTextToData(LineOfDataPersonal, PersonalInfo, SepratorPersonalData);
+		//User.IsAgreeOnTerms = true;
 
 		User.UserName = PersonalInfo[0];
 		User.Id = stoi(PersonalInfo[1]);
@@ -130,17 +131,18 @@ namespace File
 		return (User.Address.Street + "/#/" + User.Address.City + "/#/" + User.Address.HomeNumber);
 	}
 
-	string GetAccountLine(const StUser& User)
+	string GetAccountLine(const StAccount& Account, const string& PhoneNumber)
 	{
 		string Line = "";
 
-		Line += User.Account.CardNumber + "$";
-		Line += User.Account.PINCode + "$";
-		Line += User.Account.HolderName + "$";
-		Line += User.Account.BankName + "$";
-		Line += User.Account.CVVCode + "$";
-		Line += User.Account.ExpirationDate + "$";
-		Line += to_string(User.Account.Balance);
+		Line += PhoneNumber + "$";
+		Line += Account.CardNumber + "$";
+		Line += Account.PINCode + "$";
+		Line += Account.HolderName + "$";
+		Line += Account.BankName + "$";
+		Line += Account.CVVCode + "$";
+		Line += Account.ExpirationDate + "$";
+		Line += to_string(Account.Balance);
 
 		return Line;
 	}
@@ -159,28 +161,34 @@ namespace File
 
 	/* ------------------- Load Data Types From Files -------------------  */
 
-	void LoadAccountsFromFile(const string& FileNameAccount, StUser Users[])
+	void FillAccountListForOneUser(StUser& User, const string& AccountsFile)
 	{
-		fstream FileAccount;
-
-		FileAccount.open(FileNameAccount, ios::in);
-		int Counter = 0;
-
-		//  --  Account Layer Data File -- 
-		if (FileAccount.is_open())
+		fstream File(AccountsFile, ios::in);
+		if (File.is_open())
 		{
-			string AccountDataLine = "";
-			while (getline(FileAccount, AccountDataLine))
+			string AccountLine = "";
+			while (getline(File, AccountLine))
 			{
-				if (Counter < AddingUsersCounter)
+				string ConnectorPhoneNumber = "";
+				StAccount Account = GetAccountFromLine(AccountLine, ConnectorPhoneNumber);
+
+				if (User.Phone == ConnectorPhoneNumber)
 				{
-					Users[Counter].Account = GetAccountFromLine(AccountDataLine);
-					Counter++;
+					User.AccountsList[User.CountAccounts] = Account;
+					User.CountAccounts++;
 				}
 			}
 		}
-		FileAccount.close();
+		File.close();
+	}
 
+	void LoadAccountsFromFile(const string& FileNameAccount, StUser Users[])
+	{
+		//  --  Account Layer Data File -- 
+		for (int UserPosition = 0; UserPosition < AddingUsersCounter; UserPosition++)
+		{
+			FillAccountListForOneUser(Users[UserPosition], FileNameAccount);
+		}
 	}
 
 	void LoadAddressFromFile(const string& FileNameAddress, StUser Users[])
@@ -267,13 +275,16 @@ namespace File
 		{
 			for (int Counter = 0; Counter < CountUsers; Counter++)
 			{
-				File << GetAccountLine(Users[Counter]) << endl;
+				for (int AccountPosition = 0; AccountPosition < Users[Counter].CountAccounts; AccountPosition++)
+				{
+					File << GetAccountLine(Users[Counter].AccountsList[AccountPosition], Users[Counter].Phone) << endl;
+				}
 			}
 		}
 		File.close();
 	}
 
-	void SaveToPersonalFile(const StUser Users[], int CountUsers, const string& FilePersonal)
+	void SaveToPersonalFile(StUser Users[], int CountUsers, const string& FilePersonal)
 	{
 		fstream File;
 		File.open(FilePersonal, ios::out);
@@ -309,8 +320,8 @@ namespace File
 		{
 			if (ListTransactions[Position].PhoneNumber_From == User.Phone)
 			{
-				User.TransactionsFrom[User.TransactionsCountFrom] = ListTransactions[Position];
-				User.TransactionsCountFrom++;
+				User.TransactionsSending[User.TransactionsCountSending] = ListTransactions[Position];
+				User.TransactionsCountSending++;
 			}
 		}
 	}
@@ -321,8 +332,8 @@ namespace File
 		{
 			if (ListTransactions[Position].PhoneNumber_To == User.Phone)
 			{
-				User.TransactionsTo[User.TransactionsCountTo] = ListTransactions[Position];
-				User.TransactionsCountTo++;
+				User.TransactionsRecieving[User.TransactionsCountRecieving] = ListTransactions[Position];
+				User.TransactionsCountRecieving++;
 			}
 		}
 	}
@@ -371,8 +382,8 @@ namespace File
 		AddLineToTransactionsFile(LineDataTransaction, TransactionsInfoFile);
 	}
 
-	// if The System In Ending Point Of Processing , Execute This
-	void Access_SaveUsersToFiles(const StUser Users[], const string& AccountsFile, const string& AddressFile, const string& PersonalFile)
+	// If The System In Ending Point Of Processing , Execute This
+	void Access_SaveUsersToFiles(StUser Users[], const string& AccountsFile, const string& AddressFile, const string& PersonalFile)
 	{
 		SaveToPersonalFile(Users, AddingUsersCounter, PersonalFile);
 
